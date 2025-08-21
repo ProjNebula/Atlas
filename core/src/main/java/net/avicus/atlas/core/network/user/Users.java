@@ -69,6 +69,6 @@ public class Users {
   }
 
   public static String getDisplay(CommandSender player, boolean forceRanks) {
-    return getLocalizedDisplay(player, forceRanks).translate(Locale.ENGLISH).toLegacyText();
+    return getLocalizedDisplay(player, forceRanks).render(null).toLegacyText();
   }
 }

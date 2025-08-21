@@ -60,7 +60,7 @@ public class TrackedInventory {
       LocalizedNumber healthNumber = new LocalizedNumber(health);
       LocalizedNumber healthMaxNumber = new LocalizedNumber(healthMax);
       meta.setDisplayName(
-          Messages.UI_HEALTH.with(ChatColor.WHITE, healthNumber, healthMaxNumber).translate(locale)
+          Messages.UI_HEALTH.with(ChatColor.WHITE, healthNumber, healthMaxNumber).render(player)
               .toLegacyText());
       healthItem.setItemMeta(meta);
 
@@ -69,7 +69,7 @@ public class TrackedInventory {
       LocalizedNumber foodNumber = new LocalizedNumber(food);
       LocalizedNumber foodMaxNumber = new LocalizedNumber(20);
       meta.setDisplayName(
-          Messages.UI_FOOD_LEVEL.with(ChatColor.WHITE, foodNumber, foodMaxNumber).translate(locale)
+          Messages.UI_FOOD_LEVEL.with(ChatColor.WHITE, foodNumber, foodMaxNumber).render(player)
               .toLegacyText());
       foodItem.setItemMeta(meta);
 

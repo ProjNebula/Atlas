@@ -100,7 +100,7 @@ public class PhaseCommands {
     List<BaseComponent> rows = Lists.newArrayList();
 
     rows.add(new UnlocalizedFormat(prefix + "{0} ({1})")
-        .with(phase.getName().toText(), new UnlocalizedText(phase.getId())).translate(viewer));
+        .with(phase.getName().toText(), new UnlocalizedText(phase.getId())).render(viewer));
     rows.add(new TextComponent(prefix + INDENT + ChatColor.YELLOW + StringUtil
         .listToEnglishCompound(phase.describeReplacementStrategy())));
     rows.add(new TextComponent(

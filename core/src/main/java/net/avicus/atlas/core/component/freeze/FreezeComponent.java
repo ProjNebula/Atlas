@@ -106,7 +106,7 @@ public class FreezeComponent implements CommandComponent, ListenerComponent {
     StaffChannels.STAFF_CHANNEL.send(source,
         (frozen ? Translations.FREEZE_BROADCAST_FROZE
             : Translations.FREEZE_BROADCAST_UNFROZE)
-            .with(ChatColor.AQUA, source.getName(), victim.getName()).translate(Locale.US));
+            .with(ChatColor.AQUA, source.getName(), victim.getName()).render(null));
     victim.sendMessage(
         (frozen ? Translations.FREEZE_FROZEN : Translations.FREEZE_UNFROZEN)
             .with(ChatColor.AQUA, Users.getLocalizedDisplay(source)));
@@ -149,7 +149,7 @@ public class FreezeComponent implements CommandComponent, ListenerComponent {
       this.setFrozen(player, true, false);
       StaffChannels.STAFF_CHANNEL.send(null,
           Translations.FREEZE_BROADCAST_JOINED.with(ChatColor.AQUA, player.getName())
-              .translate(Locale.US));
+              .render(null));
     }
   }
 

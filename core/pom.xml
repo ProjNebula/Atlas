@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.avicus</groupId>
@@ -10,22 +10,32 @@
   </parent>
   <artifactId>atlas-core</artifactId>
   <dependencies>
+    <!-- Server -->
+    <dependency>
+      <groupId>app.ashcon</groupId>
+      <artifactId>sportpaper</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>app.ashcon</groupId>
+      <artifactId>sportpaper-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <!-- Utilities -->
     <dependency>
       <groupId>net.avicus</groupId>
       <artifactId>compendium-bukkit</artifactId>
     </dependency>
     <dependency>
-      <groupId>net.avicus</groupId>
-      <artifactId>magnet-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>net.avicus</groupId>
-      <artifactId>magnet</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.keenant</groupId>
+      <artifactId>tabbed</artifactId>
+      <version>1.7-SNAPSHOT</version>
+    </dependency>
+    <!-- Tracking -->
     <dependency>
       <groupId>net.avicus</groupId>
       <artifactId>grave</artifactId>
@@ -35,10 +45,7 @@
       <artifactId>tracker</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.keenant</groupId>
-      <artifactId>tabbed</artifactId>
-    </dependency>
-    <dependency>
+      <!-- WE -->
       <groupId>com.sk89q.worldedit</groupId>
       <artifactId>worldedit-core</artifactId>
     </dependency>
@@ -46,6 +53,7 @@
       <groupId>com.sk89q.worldedit</groupId>
       <artifactId>worldedit-bukkit</artifactId>
     </dependency>
+    <!-- Packets -->
     <dependency>
       <groupId>us.myles</groupId>
       <artifactId>viaversion</artifactId>

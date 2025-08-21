@@ -271,7 +271,7 @@ public class Spawn implements RuntimeConfigurable {
 
   @Override
   public String getDescription(CommandSender viewer) {
-    return this.group.map(g -> g.getChatColor() + g.getName().translateDefault() + ChatColor.RESET + "'s ")
+    return this.group.map(g -> g.getChatColor() + g.getName().renderDefault() + ChatColor.RESET + "'s ")
         .orElse("") + "Spawn";
   }
 

@@ -2,6 +2,7 @@ package net.avicus.atlas.core.listener;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -34,6 +35,26 @@ public class FakeBlockState implements BlockState {
   @Override
   public Block getBlock() {
     return parent.getBlock();
+  }
+
+  @Override
+  public Material getMaterial() {
+    return this.type.orElse(this.parent.getMaterial());
+  }
+
+  @Override
+  public MaterialData getMaterialData() {
+    return this.data.orElse(this.parent.getMaterialData());
+  }
+
+  @Override
+  public void setMaterial(Material material) {
+    this.type = Optional.ofNullable(material);
+  }
+
+  @Override
+  public void setMaterialData(MaterialData materialData) {
+    this.data = Optional.ofNullable(materialData);
   }
 
   @Override
@@ -139,6 +160,11 @@ public class FakeBlockState implements BlockState {
   @Override
   public void setMetadata(String s, MetadataValue metadataValue) {
     throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public MetadataValue getMetadata(String s, Plugin plugin) {
+    return null;
   }
 
   @Override

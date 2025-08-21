@@ -66,7 +66,7 @@ public class RespawnTask extends AtlasTask implements Listener {
     this.autoRespawn = autoRespawn;
     this.freezePlayer = freezePlayer;
     this.blindPlayer = blindPlayer;
-    this.title = Messages.GENERIC_DEATH.with(ChatColor.RED).translate(this.locale);
+    this.title = Messages.GENERIC_DEATH.with(ChatColor.RED).render(this.player);
     this.currentTick = 0;
     this.hasRefreshed = false;
   }
@@ -193,6 +193,6 @@ public class RespawnTask extends AtlasTask implements Listener {
     }
     subtitle.style().color(ChatColor.WHITE);
 
-    this.player.sendTitle(new Title(this.title, subtitle.translate(locale), 0, 40, 20));
+    this.player.sendTitle(new Title(this.title, subtitle.render(player), 0, 40, 20));
   }
 }

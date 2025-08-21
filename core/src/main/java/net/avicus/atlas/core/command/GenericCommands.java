@@ -58,7 +58,7 @@ public class GenericCommands {
     }
     sender.sendMessage(Strings.padChatComponent(
         Translations.COMMANDS_STAFF_TITLE.with(ChatColor.GREEN)
-            .translate(sender.getLocale()), "-", ChatColor.YELLOW, ChatColor.AQUA));
+            .render(sender), "-", ChatColor.YELLOW, ChatColor.AQUA));
     if (online.isEmpty()) {
       sender.sendMessage(Translations.COMMANDS_STAFF_NONE.with(ChatColor.GRAY));
       return;

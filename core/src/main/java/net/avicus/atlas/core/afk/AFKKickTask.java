@@ -54,7 +54,7 @@ public class AFKKickTask extends AtlasTask implements Listener {
           .with(Messages.UI_AFK_LINE_1.with(ChatColor.BLUE),
               Messages.UI_AFK_LINE_2.with(ChatColor.GOLD, website));
       AtlasTask.of(() -> {
-        toKick.forEach(p -> p.kickPlayer(message.translate(p).toLegacyText()));
+        toKick.forEach(p -> p.kickPlayer(message.render(p).toLegacyText()));
       }).now();
     }
   }

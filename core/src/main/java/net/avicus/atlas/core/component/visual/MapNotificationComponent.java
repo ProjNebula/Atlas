@@ -21,6 +21,7 @@ import net.avicus.compendium.utils.Strings;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 
 /**
@@ -59,7 +60,7 @@ public class MapNotificationComponent implements ListenerComponent {
 
     // Game Types
     List<String> types = map.getGameTypes().stream().map(gameType ->
-        gameType.getName().with(org.bukkit.ChatColor.BLUE).translate(Locale.ENGLISH).toLegacyText()
+        gameType.getName().with(org.bukkit.ChatColor.BLUE).render(Bukkit.getConsoleSender()).toLegacyText()
             + ChatColor.AQUA).collect(Collectors.toList());
     BaseComponent gameType = new TextComponent(StringUtil.listToEnglishCompound(types));
     gameType.setColor(ChatColor.BLUE);

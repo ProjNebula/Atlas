@@ -50,18 +50,16 @@ public class FakeGUIsFactory implements ModuleFactory<FakeGUIsModule> {
     List<XmlElement> elements = root.getChildren("fake-guis");
 
     boolean fakeBenches = true;
-    boolean fakeAnvils = false;
     boolean fakeEnchantTables = true;
 
     if (!elements.isEmpty()) {
       for (XmlElement element : elements) {
         fakeBenches = element.getAttribute("fake-benches").asBoolean().orElse(fakeBenches);
-        fakeAnvils = element.getAttribute("fake-anvils").asBoolean().orElse(fakeAnvils);
         fakeEnchantTables = element.getAttribute("fake-enchant-tables").asBoolean()
             .orElse(fakeEnchantTables);
       }
     }
 
-    return Optional.of(new FakeGUIsModule(match, fakeBenches, fakeAnvils, fakeEnchantTables));
+    return Optional.of(new FakeGUIsModule(match, fakeBenches, fakeEnchantTables));
   }
 }

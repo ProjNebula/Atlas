@@ -157,10 +157,10 @@ public class ObjectiveUtils {
 
       String fullLine = "";
       if (superCondense) {
-        fullLine = name.translate(locale).toLegacyText();
+        fullLine = name.render(player).toLegacyText();
         fullLine += TEAM_SEPERATOR;
       } else {
-        lines.add(name.translate(locale).toLegacyText());
+        lines.add(name.render(player).toLegacyText());
       }
 
       if (condense && !superCondense) {

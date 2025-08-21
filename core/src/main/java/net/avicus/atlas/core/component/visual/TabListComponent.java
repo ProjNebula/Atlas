@@ -221,7 +221,7 @@ public class TabListComponent implements ListenerComponent {
     final String time = StringUtil
         .secondsToClock((int) sm.getTotalPlayingDuration().getStandardSeconds());
     final String header = Messages.UI_BY.with(ChatColor.GRAY, mapPart, authorPart)
-        .translate(player.getLocale()).toLegacyText();
+        .render(player).toLegacyText();
     String footer = stateColor + "" + ChatColor.BOLD + time;
 
     @Nullable String serverName = Atlas.get().getBridge().getServerName();
@@ -320,7 +320,7 @@ public class TabListComponent implements ListenerComponent {
   }
 
   private TextTabItem getTabItem(Group group, Player viewer) {
-    String name = group.getName().toText(group.getChatColor()).translate(viewer.getLocale())
+    String name = group.getName().toText(group.getChatColor()).render(viewer)
         .toLegacyText();
     String text =
         ChatColor.WHITE.toString() + group.size() + ChatColor.GRAY.toString() + "/" + group

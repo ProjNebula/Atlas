@@ -83,7 +83,7 @@ public class ShopMenuItem implements ClickableInventoryMenuItem, InventoryMenuIt
       this.item.give(this.player);
       this.player.playSound(this.player.getLocation(), Sound.NOTE_PIANO, 1f, 1.5f);
       this.player.sendMessage(Messages.UI_SHOP_PURCHASE_SUCCESS
-          .with(ChatColor.GREEN, this.item.getName().translate(this.player)));
+          .with(ChatColor.GREEN, this.item.getName().render(this.player)));
       this.shop.getPointListener()
           .modifyPoints(this.player.getUniqueId(), this.item.getPrice(), NumberAction.SUBTRACT);
       this.player.closeInventory();
@@ -110,11 +110,11 @@ public class ShopMenuItem implements ClickableInventoryMenuItem, InventoryMenuIt
     final Locale locale = this.player.getLocale();
     ItemStack stack = this.item.getIcon().getBaseItemStack().clone();
     ItemMeta meta = stack.getItemMeta();
-    meta.setDisplayName(this.item.getName().translate(this.player));
+    meta.setDisplayName(this.item.getName().render(this.player));
     List<String> loreList = Lists.newArrayList();
     if (!this.item.getDescription().isEmpty()) {
       for (LocalizedXmlString lore : this.item.getDescription()) {
-        loreList.add(lore.translate(this.player));
+        loreList.add(lore.render(this.player));
       }
       loreList.add("");
     }
@@ -125,7 +125,7 @@ public class ShopMenuItem implements ClickableInventoryMenuItem, InventoryMenuIt
     } else {
       cost.style().color(ChatColor.RED);
     }
-    loreList.add(cost.translate(locale).toLegacyText());
+    loreList.add(cost.render(player).toLegacyText());
     meta.setLore(loreList);
     stack.setItemMeta(meta);
 

@@ -39,7 +39,7 @@ public class VoteMenu extends InventoryMenu implements Runnable {
 
   private VoteMenu(VoteModule module, Player player) {
     super(player,
-        Messages.VOTE_TITLE.with(ChatColor.RED).translate(player.getLocale()).toLegacyText(),
+        Messages.VOTE_TITLE.with(ChatColor.RED).render(player).toLegacyText(),
         Math.max(1, Inventories.rowCount(module.getOptions().size())),
         createContents(module, player));
   }
@@ -62,7 +62,7 @@ public class VoteMenu extends InventoryMenu implements Runnable {
     final ItemStack stack = new ItemStack(Material.PAPER);
     final ItemMeta meta = stack.getItemMeta();
     meta.setDisplayName(
-        Messages.VOTE_TITLE.with(ChatColor.GOLD).translate(player.getLocale()).toLegacyText());
+        Messages.VOTE_TITLE.with(ChatColor.GOLD).render(player).toLegacyText());
     meta.setLore(Collections.singletonList(ChatColor.BLACK + "Vote Menu"));
     stack.setItemMeta(meta);
     return stack;
@@ -134,16 +134,16 @@ public class VoteMenu extends InventoryMenu implements Runnable {
       final List<String> lore = Lists.newArrayList();
       lore.add(VOTES_FORMAT.with(ChatColor.WHITE, Messages.VOTE_VOTES.with(ChatColor.GRAY),
           new LocalizedNumber(Collections.frequency(this.module.votes(), this.map)))
-          .translate(locale).toLegacyText());
+          .render(player).toLegacyText());
       final EnumSet<GameType> gameTypes = info.getGameTypes();
       if (!gameTypes.isEmpty()) {
         lore.add("");
         lore.add((gameTypes.size() == 1 ? Translations.GAMETYPE_NAME_SINGULAR
-            : Translations.GAMETYPE_NAME_PLURAL).with(ChatColor.GRAY).translate(locale)
+            : Translations.GAMETYPE_NAME_PLURAL).with(ChatColor.GRAY).render(player)
             .toLegacyText());
         for (GameType gameType : gameTypes) {
           lore.add(
-              "  " + gameType.getName().with(ChatColor.WHITE).translate(locale).toLegacyText());
+              "  " + gameType.getName().with(ChatColor.WHITE).render(player).toLegacyText());
         }
       }
       meta.setLore(lore);

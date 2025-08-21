@@ -33,20 +33,16 @@ public class LocalizedXmlString {
     this.text = format.with(arguments.toArray(new Localizable[arguments.size()]));
   }
 
-  public String translate(Locale locale) {
-    BaseComponent component = this.text.translate(locale);
+  public String render(CommandSender viewer) {
+    BaseComponent component = this.text.render(viewer);
     // toPlainText() is misleading in this situation
     // colors will be present since we put in colors straight into
     // the string with "^colorcode".
     return component.toPlainText();
   }
 
-  public String translate(CommandSender player) {
-    return translate(player.getLocale());
-  }
-
-  public String translateDefault() {
-    return translate(Bukkit.getConsoleSender());
+  public String renderDefault() {
+      return render(null);
   }
 
   public Localizable toText() {
@@ -65,6 +61,6 @@ public class LocalizedXmlString {
 
   @Override
   public String toString() {
-    return "LocalizedXmlString(text=" + translate(Locale.ENGLISH) + ")";
+    return "LocalizedXmlString(text=" + render(Bukkit.getConsoleSender()) + ")";
   }
 }
