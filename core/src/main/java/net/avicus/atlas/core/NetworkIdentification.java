@@ -8,6 +8,6 @@ package net.avicus.atlas.core;
  */
 public class NetworkIdentification {
 
-  public static String NAME = "The Avicus Network";
-  public static String URL = "avicus.net";
+  public static String NAME = "Project Nebula";
+  public static String URL = "mcnebula.net";
 }

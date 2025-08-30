@@ -21,10 +21,11 @@
   </properties>
 
   <scm>
-    <connection>scm:git://github.com/Avicus/Atlas.git</connection>
-    <developerConnection>scm:git:ssh://github.com/Avicus/Atlas.git</developerConnection>
-    <url>https://github.com/Avicus/Atlas</url>
+    <connection>scm:git://github.com/ProjNebula/Atlas.git</connection>
+    <developerConnection>scm:git:ssh://github.com/ProjNebula/Atlas.git</developerConnection>
+    <url>https://github.com/ProjNebula/Atlas</url>
   </scm>
+
   <repositories>
     <!-- ProtoLib -->
     <repository>

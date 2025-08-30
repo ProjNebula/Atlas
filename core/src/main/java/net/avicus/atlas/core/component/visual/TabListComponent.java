@@ -96,7 +96,9 @@ public class TabListComponent implements ListenerComponent {
     new AtlasTask() {
       @Override
       public void run() {
-        int version = Via.getAPI().getPlayerVersion(event.getPlayer());
+        // TODO: There is an issue with via api, but this issue more specifically applies to versions older then 1.8 so could be a non-issue, leaving like this for now
+        //int version = Via.getAPI().getPlayerVersion(event.getPlayer());
+        int version = 47;
         if (event.getPlayer().isOnline() && version >= 47) {
           TabListComponent.this.tabbed.newTableTabList(event.getPlayer(), COLUMNS, 16);
           update(event.getPlayer(), false);
