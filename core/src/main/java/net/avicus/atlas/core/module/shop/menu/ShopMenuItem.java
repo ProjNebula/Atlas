@@ -61,7 +61,7 @@ public class ShopMenuItem implements ClickableInventoryMenuItem, InventoryMenuIt
   }
 
   /**
-   * Send a message and sound do denote a failure of purchase.
+   * Send a message and sound to denote a failure of purchase.
    */
   private void sendFail() {
     this.player.playSound(this.player.getLocation(), Sound.NOTE_PIANO, 1f, 0.5f);

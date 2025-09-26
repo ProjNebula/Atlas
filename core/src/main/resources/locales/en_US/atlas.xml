@@ -234,7 +234,7 @@
       <fail>You may not open the shop at this time.</fail>
       <prestige-required>Prestige {0} Required for Purchase</prestige-required>
       <purchase>
-        <fail>You cannot purchase this item as the current time.</fail>
+        <fail>You cannot purchase this item at the current time.</fail>
         <success>Successfully purchased {0}!</success>
       </purchase>
     </shop>
