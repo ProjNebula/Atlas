@@ -1,11 +1,6 @@
 package net.avicus.atlas.core.module.vote;
 
 import com.google.common.collect.Lists;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import net.avicus.atlas.core.Atlas;
 import net.avicus.atlas.core.GameType;
 import net.avicus.atlas.core.map.AtlasMap;
@@ -31,6 +26,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class VoteMenu extends InventoryMenu implements Runnable {
 
@@ -133,7 +134,7 @@ public class VoteMenu extends InventoryMenu implements Runnable {
               .getName());
       final List<String> lore = Lists.newArrayList();
       lore.add(VOTES_FORMAT.with(ChatColor.WHITE, Messages.VOTE_VOTES.with(ChatColor.GRAY),
-          new LocalizedNumber(Collections.frequency(this.module.votes(), this.map)))
+              new LocalizedNumber(Collections.frequency(this.module.votes(), this.map)))
           .render(player).toLegacyText());
       final EnumSet<GameType> gameTypes = info.getGameTypes();
       if (!gameTypes.isEmpty()) {
@@ -149,10 +150,19 @@ public class VoteMenu extends InventoryMenu implements Runnable {
       meta.setLore(lore);
       meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
       if (active) {
-        meta.setOwner(null, Skins.EARTH_DARK_TO_LIGHT_ID, Skins.EARTH_DARK_TO_LIGHT);
+        meta.setOwner(null, Skins.SELECTED_ID, Skins.SELECTED);
         meta.addEnchant(Enchantment.SILK_TOUCH, 1, false);
       } else {
-        meta.setOwner(null, Skins.EARTH_ID, Skins.EARTH);
+        if (gameTypes.size() == 1) {
+          switch (gameTypes.iterator().next()) {
+            case CTW -> meta.setOwner(null, Skins.TYPE_CTW_ID, Skins.TYPE_CTW);
+            case DTM, DTC -> meta.setOwner(null, Skins.TYPE_DTM_ID, Skins.TYPE_DTM);
+            case SCORE, ELIMINATION -> meta.setOwner(null, Skins.TYPE_SCORE_ID, Skins.TYPE_SCORE);
+            default -> meta.setOwner(null, Skins.EARTH_ID, Skins.EARTH);
+          }
+        } else {
+          meta.setOwner(null, Skins.EARTH_ID, Skins.EARTH);
+        }
       }
       stack.setItemMeta(meta);
       return stack;
