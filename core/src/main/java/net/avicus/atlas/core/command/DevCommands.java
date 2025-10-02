@@ -181,12 +181,13 @@ public class DevCommands {
       throw new CommandMatchException();
     }
     
-    int points;
+    int points = 0;
     try {
       points = Integer.parseInt(cmd.getString(1));
     }
     catch (NumberFormatException e) {
-      throw new CommandException("Cannot set points to a non-integer value");
+      sender.sendMessage(ChatColor.RED + "Cannot set points to a non-integer value");
+      return;
     }
 
     String query = cmd.getString(0);
@@ -197,8 +198,9 @@ public class DevCommands {
       return;
     }
 
+    final int setPoints = points;
     module.get().getShops().forEach(shop -> shop.getPointListener().modifyPoints(search.getUniqueId(),
-          points, NumberAction.SET));
+          setPoints, NumberAction.SET));
 
     sender.sendMessage(ChatColor.GREEN + "Set points to " + points + " for player " + query);
   }

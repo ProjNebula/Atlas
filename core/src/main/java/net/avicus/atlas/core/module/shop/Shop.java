@@ -79,10 +79,11 @@ public class Shop implements Listener, RegisterableObject<Shop> {
     this.pointListener.setShop(this);
   }
 
-  @EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
+  // Items such as the nether star that don't have any action on right click will cancel when using RIGHT_CLICK_AIR, so we don't want to ignore cancelled
+  @EventHandler(ignoreCancelled = false, priority = EventPriority.LOW)
   public void playerInteract(final PlayerInteractEvent event) {
-    if (event.getAction() != Action.RIGHT_CLICK_AIR
-        && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+    if (!(event.getAction() == Action.RIGHT_CLICK_AIR
+        || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
       return;
     }
 
