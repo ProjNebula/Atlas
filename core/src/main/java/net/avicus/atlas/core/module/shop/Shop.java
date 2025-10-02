@@ -51,6 +51,7 @@ public class Shop implements Listener, RegisterableObject<Shop> {
   /**
    * Listener used to reward points.
    */
+  @Getter
   private final PointListener pointListener;
 
   /**
