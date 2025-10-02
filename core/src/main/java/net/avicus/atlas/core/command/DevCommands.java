@@ -192,6 +192,11 @@ public class DevCommands {
     String query = cmd.getString(0);
     Player search = Bukkit.getPlayer(query);
 
+    if (search == null) {
+      sender.sendMessage(Messages.ERROR_NO_PLAYERS.with(ChatColor.RED));
+      return;
+    }
+
     module.get().getShops().forEach(shop -> shop.getPointListener().modifyPoints(search.getUniqueId(),
           points, NumberAction.SET));
 
