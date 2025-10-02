@@ -8,6 +8,7 @@ import com.sk89q.minecraft.util.commands.NestedCommand;
 import java.util.Optional;
 import java.util.UUID;
 import net.avicus.atlas.core.Atlas;
+import net.avicus.atlas.core.command.exception.CommandMatchException;
 import net.avicus.atlas.core.map.AtlasMap;
 import net.avicus.atlas.core.map.library.MapLibrary;
 import net.avicus.atlas.core.match.Match;
@@ -15,7 +16,11 @@ import net.avicus.atlas.core.module.checks.Check;
 import net.avicus.atlas.core.module.checks.CheckContext;
 import net.avicus.atlas.core.module.checks.CheckResult;
 import net.avicus.atlas.core.module.checks.variable.PlayerVariable;
+import net.avicus.atlas.core.module.shop.ShopModule;
 import net.avicus.atlas.core.util.Messages;
+import net.avicus.atlas.core.util.Translations;
+import net.avicus.compendium.commands.exception.TranslatableCommandErrorException;
+import net.avicus.compendium.number.NumberAction;
 import net.avicus.compendium.Paste;
 import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.locale.text.UnlocalizedText;
@@ -160,6 +165,44 @@ public class DevCommands {
 
     sender.sendMessage(
         search.hasPermission(cmd.getString(1)) ? ChatColor.GREEN + "YES" : ChatColor.RED + "NO");
+  }
+
+  @Command(aliases = {"points"}, desc = "Sets match points for a player", max = 2, usage = "<player> <points>")
+  @CommandPermissions("atlas.dev.points")
+  public static void givePoints(CommandContext cmd, CommandSender sender) throws CommandMatchException, CommandException {
+    Match match = Atlas.getMatch();
+    
+    if (match == null) {
+      throw new CommandMatchException();
+    }
+
+    Optional<ShopModule> module = match.getModule(ShopModule.class);
+    if (!module.isPresent()) {
+      throw new CommandMatchException();
+    }
+    
+    int points = 0;
+    try {
+      points = Integer.parseInt(cmd.getString(1));
+    }
+    catch (NumberFormatException e) {
+      sender.sendMessage(ChatColor.RED + "Cannot set points to a non-integer value");
+      return;
+    }
+
+    String query = cmd.getString(0);
+    Player search = Bukkit.getPlayer(query);
+
+    if (search == null) {
+      sender.sendMessage(Messages.ERROR_NO_PLAYERS.with(ChatColor.RED));
+      return;
+    }
+
+    final int setPoints = points;
+    module.get().getShops().forEach(shop -> shop.getPointListener().modifyPoints(search.getUniqueId(),
+          setPoints, NumberAction.SET));
+
+    sender.sendMessage(ChatColor.GREEN + "Set points to " + points + " for player " + query);
   }
 
   public static class Parent {

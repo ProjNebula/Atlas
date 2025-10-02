@@ -61,6 +61,10 @@
       <id>md5</id>
       <url>https://repo.md-5.net/content/groups/public</url>
     </repository>
+    <repository>
+      <id>aikar</id>
+      <url>https://repo.aikar.co/nexus/content/repositories/aikar/</url>
+    </repository>
   </repositories>
   <dependencyManagement>
     <dependencies>

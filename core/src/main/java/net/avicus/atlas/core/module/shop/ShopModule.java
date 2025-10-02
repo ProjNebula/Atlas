@@ -1,6 +1,7 @@
 package net.avicus.atlas.core.module.shop;
 
 import java.util.List;
+import lombok.Getter;
 import lombok.ToString;
 import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.Module;
@@ -10,6 +11,7 @@ import net.avicus.atlas.core.util.Events;
 public class ShopModule implements Module {
 
   private final Match match;
+  @Getter
   private final List<Shop> shops;
 
   public ShopModule(Match match, List<Shop> shops) {
