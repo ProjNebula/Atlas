@@ -30,7 +30,7 @@ public class ItemsModule implements Module {
   public static final String DESTROY_METADATA_TAG = "atlas.grenade-destroy";
 
   public static final ItemTag.Boolean GRENADE_TAG = new ItemTag.Boolean("atlas.grenade",
-      true);
+      false);
   public static final ItemTag.Double GRENADE_POWER_TAG = new ItemTag.Double("atlas.grenade-power",
       1.0);
   public static final ItemTag.Boolean GRENADE_FIRE_TAG = new ItemTag.Boolean("atlas.grenade-fire",
