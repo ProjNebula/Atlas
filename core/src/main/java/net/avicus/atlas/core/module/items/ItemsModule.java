@@ -1,9 +1,5 @@
 package net.avicus.atlas.core.module.items;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import lombok.Getter;
 import lombok.ToString;
 import net.avicus.atlas.core.Atlas;
@@ -11,27 +7,21 @@ import net.avicus.atlas.core.item.ItemTag;
 import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.Module;
 import net.avicus.atlas.core.module.checks.Check;
-import net.avicus.atlas.core.module.projectiles.CustomProjectile;
 import net.avicus.atlas.core.util.Events;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.util.Vector;
-import tc.oc.tracker.Trackers;
-import tc.oc.tracker.trackers.ExplosiveTracker;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @ToString(exclude = "match")
 public class ItemsModule implements Module {
