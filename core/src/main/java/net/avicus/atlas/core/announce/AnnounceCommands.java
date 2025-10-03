@@ -16,10 +16,10 @@ import org.bukkit.command.ConsoleCommandSender;
 public class AnnounceCommands {
 
   private static TextComponent prefixNormal = new TextComponent(
-      org.bukkit.ChatColor.GOLD + "[" + org.bukkit.ChatColor.AQUA + org.bukkit.ChatColor.BOLD
-          + "AVN" + org.bukkit.ChatColor.GOLD + "] ");
+      org.bukkit.ChatColor.DARK_GREEN + "[" + org.bukkit.ChatColor.GREEN + org.bukkit.ChatColor.BOLD
+          + "MCN" + org.bukkit.ChatColor.DARK_GREEN + "] ");
   private static TextComponent prefixCritical = new TextComponent(
-      org.bukkit.ChatColor.RED + "[" + org.bukkit.ChatColor.GOLD + org.bukkit.ChatColor.BOLD
+      org.bukkit.ChatColor.RED + "[" + org.bukkit.ChatColor.GREEN + org.bukkit.ChatColor.BOLD
           + "NETWORK ALERT" + org.bukkit.ChatColor.RED
           + "] ");
 
@@ -62,7 +62,7 @@ public class AnnounceCommands {
   public static class Parent {
 
     @CommandPermissions("hook.announce")
-    @Command(aliases = {"announce"}, desc = "announcement commands")
+    @Command(aliases = {"announce"}, desc = "Announcement commands")
     @NestedCommand(AnnounceCommands.class)
     public static void parent(CommandContext args, CommandSender source) {
     }
