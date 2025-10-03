@@ -4,15 +4,6 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
 import net.avicus.atlas.core.SpecificationVersionHistory;
 import net.avicus.atlas.core.documentation.FeatureDocumentation;
 import net.avicus.atlas.core.documentation.ModuleDocumentation;
@@ -30,6 +21,7 @@ import net.avicus.atlas.core.module.ModuleBuildException;
 import net.avicus.atlas.core.module.ModuleFactory;
 import net.avicus.atlas.core.module.ModuleFactorySort;
 import net.avicus.atlas.core.module.executors.ExecutorsFactory;
+import net.avicus.atlas.core.module.items.ItemsModule;
 import net.avicus.atlas.core.module.loadouts.type.CompassLoadout;
 import net.avicus.atlas.core.module.loadouts.type.EffectLoadout;
 import net.avicus.atlas.core.module.loadouts.type.FoodLoadout;
@@ -84,6 +76,16 @@ import org.bukkit.util.Vector;
 import org.joda.time.Duration;
 import org.joda.time.Seconds;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
 @ModuleFactorySort(ModuleFactorySort.Order.EARLY) // Doesn't rely on anything
 public class LoadoutsFactory implements ModuleFactory<Module> {
 
@@ -96,6 +98,12 @@ public class LoadoutsFactory implements ModuleFactory<Module> {
       Material.STAINED_GLASS,
       Material.STAINED_GLASS_PANE,
       Material.CARPET
+  );
+
+  private final static Collection<Material> VALID_GRENADES = Arrays.asList(
+          Material.SNOW_BALL,
+          Material.EGG,
+          Material.ENDER_PEARL
   );
 
   public LoadoutsFactory() {
@@ -493,7 +501,23 @@ public class LoadoutsFactory implements ModuleFactory<Module> {
     // amount
     int amount = element.getAttribute("amount").asInteger().orElse(1);
 
+    // grenade
+    boolean grenade = element.getAttribute("grenade").asBoolean().orElse(false);
+
     ItemStack item = new ItemStack(material, amount, damage);
+
+    if (grenade) {
+      if (VALID_GRENADES.contains(material)) {
+        double grenadePower = element.getAttribute("grenade-power").asDouble().orElse(1.0);
+        boolean grenadeFire = element.getAttribute("grenade-fire").asBoolean().orElse(false);
+        boolean grenadeDestroy = element.getAttribute("grenade-destroy").asBoolean().orElse(false);
+
+        ItemsModule.applyGrenadeFormat(item, grenadePower, grenadeFire, grenadeDestroy);
+      } else {
+        match.warn(new XmlException(element, material + " is not a valid grenade material."));
+      }
+    }
+
     ItemMeta meta = item.getItemMeta();
 
     // name
