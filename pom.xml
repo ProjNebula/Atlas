@@ -169,12 +169,11 @@
         <artifactId>command-framework-core</artifactId>
         <version>1.9-SNAPSHOT</version>
       </dependency>
-      <!-- HTML Gen -->
-      <!-- https://mvnrepository.com/artifact/com.hp.gagawa/gagawa -->
+      <!-- Markdown Gen -->
       <dependency>
-        <groupId>com.hp.gagawa</groupId>
-        <artifactId>gagawa</artifactId>
-        <version>1.0.1</version>
+        <groupId>com.vladsch.flexmark</groupId>
+        <artifactId>flexmark-all</artifactId>
+        <version>0.64.8</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

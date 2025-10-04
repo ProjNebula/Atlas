@@ -17,10 +17,9 @@
       <version>2.0.0</version>
       <scope>provided</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.hp.gagawa/gagawa -->
     <dependency>
-      <groupId>com.hp.gagawa</groupId>
-      <artifactId>gagawa</artifactId>
+      <groupId>com.vladsch.flexmark</groupId>
+      <artifactId>flexmark-all</artifactId>
     </dependency>
   </dependencies>
   <build>

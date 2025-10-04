@@ -2,16 +2,6 @@ package net.avicus.atlas.sets.generator;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.hp.gagawa.java.Node;
-import com.hp.gagawa.java.elements.Br;
-import com.hp.gagawa.java.elements.H1;
-import com.hp.gagawa.java.elements.H3;
-import com.hp.gagawa.java.elements.Li;
-import com.hp.gagawa.java.elements.Small;
-import com.hp.gagawa.java.elements.Span;
-import com.hp.gagawa.java.elements.Strong;
-import com.hp.gagawa.java.elements.Text;
-import com.hp.gagawa.java.elements.Ul;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -90,20 +80,20 @@ public class GenerationUtils {
 
   public static void writeFile(File modules, ModuleDocumentation documentation,
       CommandSender sender, HashMap<FeatureDocumentation, Element> ex) throws IOException {
-    File html = new File(modules, documentation.getSafeName() + ".html");
-    sender.sendMessage(ChatColor.GREEN + "Writing html file at " + html.getPath());
-    html.createNewFile();
+    File md = new File(modules, documentation.getSafeName() + ".md");
+    sender.sendMessage(ChatColor.GREEN + "Writing markdown file at " + md.getPath());
+    md.createNewFile();
 
-    FileWriter writer = new FileWriter(html);
+    FileWriter writer = new FileWriter(md);
     writer.append("---\n" +
         "layout: module\n" +
         "title: " + documentation.getName() + "\n" +
         "permalink: " + documentation.getLink() + "\n" +
         "---");
     writer.append("\n\n");
-    writer.append(HTMLUtils.generateModule(documentation, ex).write());
+    writer.append(MarkdownUtils.generateModule(documentation, ex));
     writer.close();
-    sender.sendMessage(ChatColor.GREEN + "Wrote html file at " + html.getPath());
+    sender.sendMessage(ChatColor.GREEN + "Wrote markdown file at " + md.getPath());
   }
 
   public static void populateExamples(File examples, List<ModuleDocumentation> documentations)
@@ -128,7 +118,7 @@ public class GenerationUtils {
   }
 
   public static void writeHistory(File root, List<SpecInformation> info) throws IOException {
-    File histFile = new File(root, "spec-history.html");
+    File histFile = new File(root, "spec-history.md");
     histFile.createNewFile();
 
     FileWriter writer = new FileWriter(histFile);
@@ -172,77 +162,58 @@ public class GenerationUtils {
       }
     });
 
-    LinkedHashMap<Version, List<Node>> changeLog = Maps.newLinkedHashMap();
+    LinkedHashMap<Version, List<String>> changeLog = Maps.newLinkedHashMap();
     added.forEach((v, c) -> {
       changeLog.putIfAbsent(v, Lists.newArrayList());
       c.stream().sorted(String::compareTo).forEach(aC -> {
-        Li li = new Li().setCSSClass("list-group-item");
-        li.appendChild(new Strong().appendText("ADDED: ").setStyle("color: green"));
-        li.appendChild(new Text(aC));
-        changeLog.get(v).add(li);
+        changeLog.get(v).add("**ADDED:** " + aC);
       });
     });
     deprecated.forEach((v, c) -> {
       changeLog.putIfAbsent(v, Lists.newArrayList());
       c.stream().sorted(String::compareTo).forEach(aC -> {
-        Li li = new Li().setCSSClass("list-group-item");
-        li.appendChild(new Strong().appendText("DEPRECATED: ").setStyle("color: orange"));
-        li.appendChild(new Text(aC));
-        changeLog.get(v).add(li);
+        changeLog.get(v).add("**DEPRECATED:** " + aC);
       });
     });
     removed.forEach((v, c) -> {
       changeLog.putIfAbsent(v, Lists.newArrayList());
       c.stream().sorted(String::compareTo).forEach(aC -> {
-        Li li = new Li().setCSSClass("list-group-item");
-        li.appendChild(new Strong().appendText("REMOVED: ").setStyle("color: red"));
-        li.appendChild(new Text(aC));
-        changeLog.get(v).add(li);
+        changeLog.get(v).add("**REMOVED:** " + aC);
       });
     });
     breaking.forEach((v, c) -> {
       changeLog.putIfAbsent(v, Lists.newArrayList());
       c.stream().sorted(String::compareTo).forEach(aC -> {
-        Li li = new Li().setCSSClass("list-group-item");
-        li.appendChild(new Strong().appendText("BREAKING: ").setStyle("color: maroon"));
-        li.appendChild(new Text(aC));
-        changeLog.get(v).add(li);
+        changeLog.get(v).add("**BREAKING:** " + aC);
       });
     });
     changes.forEach((v, c) -> {
       changeLog.putIfAbsent(v, Lists.newArrayList());
       c.stream().sorted(String::compareTo).forEach(aC -> {
-        Li li = new Li().setCSSClass("list-group-item");
-        li.appendChild(new Strong().appendText("CHANGE: "));
-        li.appendChild(new Text(aC));
-        changeLog.get(v).add(li);
+        changeLog.get(v).add("**CHANGE:** " + aC);
       });
     });
 
-    LinkedHashMap<Version, List<Node>> sortedNodes = changeLog.entrySet()
+    LinkedHashMap<Version, List<String>> sortedNodes = changeLog.entrySet()
         .stream().sorted(Map.Entry.comparingByKey())
         .collect(Collectors
             .toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> v1, LinkedHashMap::new));
 
-    Span page = new Span();
-    page.appendChild(new H1()
-        .appendText("Specification Version History")
-        .appendChild(new Br()).appendChild(new Small()
-            .appendText("Track all the changes that have happened with each specification update."))
-    );
-    page.appendChild(new Br()).appendChild(new Br());
+    StringBuilder page = new StringBuilder();
+    page.append("# Specification Version History\n\n");
+    page.append("_Track all the changes that have happened with each specification update._\n\n");
+
     sortedNodes.forEach((v, n) -> {
-      H3 h3 = new H3().appendText(v.toString() + " ");
+      page.append("### ").append(v.toString());
       if (v == SpecificationVersionHistory.CURRENT) {
-        h3.appendChild(new Span().setCSSClass("label label-success").appendText("LATEST"));
+        page.append(" `LATEST`");
       }
-      page.appendChild(h3);
-      Ul ul = new Ul().setCSSClass("list-group");
-      n.forEach(ul::appendChild);
-      page.appendChild(ul);
+      page.append("\n\n");
+      n.forEach(item -> page.append("- ").append(item).append("\n"));
+      page.append("\n");
     });
 
-    writer.append(page.write());
+    writer.append(page.toString());
     writer.close();
   }
 
