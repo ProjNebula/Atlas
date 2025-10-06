@@ -13,15 +13,10 @@ import com.keenant.tabbed.tablist.TableTabList.TableBox;
 import com.keenant.tabbed.tablist.TableTabList.TableCell;
 import com.keenant.tabbed.tablist.TableTabList.TableCorner;
 import com.keenant.tabbed.util.Skins;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Nullable;
+import com.viaversion.viaversion.api.Via;
 import lombok.Getter;
 import lombok.Setter;
 import net.avicus.atlas.core.Atlas;
-import net.avicus.atlas.event.RefreshUIEvent;
 import net.avicus.atlas.core.component.ListenerComponent;
 import net.avicus.atlas.core.event.group.GroupMaxPlayerCountChangeEvent;
 import net.avicus.atlas.core.event.group.GroupRenameEvent;
@@ -38,6 +33,7 @@ import net.avicus.atlas.core.module.groups.GroupsModule;
 import net.avicus.atlas.core.module.states.StatesModule;
 import net.avicus.atlas.core.util.AtlasTask;
 import net.avicus.atlas.core.util.Messages;
+import net.avicus.atlas.event.RefreshUIEvent;
 import net.avicus.compendium.StringUtil;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import org.bukkit.Bukkit;
@@ -46,7 +42,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
-import us.myles.ViaVersion.api.Via;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TabListComponent implements ListenerComponent {
 
@@ -96,9 +97,7 @@ public class TabListComponent implements ListenerComponent {
     new AtlasTask() {
       @Override
       public void run() {
-        // TODO: There is an issue with via api, but this issue more specifically applies to versions older then 1.8 so could be a non-issue, leaving like this for now
-        //int version = Via.getAPI().getPlayerVersion(event.getPlayer());
-        int version = 47;
+        int version = Via.getAPI().getPlayerVersion(event.getPlayer());
         if (event.getPlayer().isOnline() && version >= 47) {
           TabListComponent.this.tabbed.newTableTabList(event.getPlayer(), COLUMNS, 16);
           update(event.getPlayer(), false);

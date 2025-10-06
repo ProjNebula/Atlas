@@ -154,9 +154,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>us.myles</groupId>
-        <artifactId>viaversion</artifactId>
-        <version>1.5.2</version>
+        <groupId>com.viaversion</groupId>
+        <artifactId>viaversion-api</artifactId>
+        <version>5.5.0</version>
       </dependency>
       <!-- Command Framework -->
       <dependency>

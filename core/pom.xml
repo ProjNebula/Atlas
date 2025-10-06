@@ -55,8 +55,8 @@
     </dependency>
     <!-- Packets -->
     <dependency>
-      <groupId>us.myles</groupId>
-      <artifactId>viaversion</artifactId>
+      <groupId>com.viaversion</groupId>
+      <artifactId>viaversion-api</artifactId>
     </dependency>
   </dependencies>
   <build>
