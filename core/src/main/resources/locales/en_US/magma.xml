@@ -122,24 +122,6 @@
       </prestige>
     </commands>
   </prestige>
-  <report>
-    <cooldown>
-      <plural>You must wait {0} seconds before using /report again.</plural>
-      <singular>You must wait {0} second before using /report again.</singular>
-    </cooldown>
-    <recent>
-      <none>There are no recent reports to view.</none>
-      <title>
-        <global>Recent Reports</global>
-        <player>Recent Reports ({0})</player>
-        <server>Recent Reports ({0})</server>
-      </title>
-      <view>
-        <player>View recent reports for {0}</player>
-      </view>
-    </recent>
-    <sent>Your report has been sent to online staff.</sent>
-  </report>
   <rtp>
     <generic>
       <success>
@@ -165,13 +147,9 @@
     </player>
   </rtp>
   <setting>
-    <reportnotification>
-      <name>ReportNotification</name>
-      <summary>If a sound should be played when you receive a report.</summary>
-    </reportnotification>
     <staffchannels>
       <name>StaffChannels</name>
-      <summary>If staff channels (reports, staff, etc) should be viewed.</summary>
+      <summary>If staff channels (staff, etc) should be viewed.</summary>
       <disabled>You currently have staff channels disabled.</disabled>
     </staffchannels>
     <alert>

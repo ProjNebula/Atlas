@@ -105,20 +105,6 @@ public class AtlasConfig {
       @ConfigKey
       public static boolean enabled;
     }
-
-    @ConfigPath("reports")
-    public static final class Report {
-
-      @ConfigKey
-      private static long cooldown;
-      @Getter
-      @ConfigKey
-      private static boolean enabled;
-
-      public static Duration getCooldown() {
-        return Duration.standardSeconds(cooldown);
-      }
-    }
   }
 
   @ConfigPath("freeze")

@@ -117,11 +117,6 @@ public final class Translations {
   public static final LocalizedFormat FREEZE_BROADCAST_UNFROZE;
   public static final LocalizedFormat FREEZE_FROZEN;
   public static final LocalizedFormat FREEZE_UNFROZEN;
-  public static final LocalizedFormat REPORT_COOLDOWN_PLURAL;
-  public static final LocalizedFormat REPORT_COOLDOWN_SINGULAR;
-  public static final LocalizedFormat REPORT_SENT;
-  public static final LocalizedFormat SETTING_REPORTNOTIFICATION_NAME;
-  public static final LocalizedFormat SETTING_REPORTNOTIFICATION_SUMMARY;
   public static final LocalizedFormat SETTING_STAFFCHANNELS_NAME;
   public static final LocalizedFormat SETTING_STAFFCHANNELS_SUMMARY;
   public static final LocalizedFormat SETTING_STAFFCHANNELS_DISABLED;
@@ -238,11 +233,6 @@ public final class Translations {
     FREEZE_BROADCAST_UNFROZE = BUNDLE.getFormat("freeze.broadcast.unfroze");
     FREEZE_FROZEN = BUNDLE.getFormat("freeze.frozen");
     FREEZE_UNFROZEN = BUNDLE.getFormat("freeze.unfrozen");
-    REPORT_COOLDOWN_PLURAL = BUNDLE.getFormat("report.cooldown.plural");
-    REPORT_COOLDOWN_SINGULAR = BUNDLE.getFormat("report.cooldown.singular");
-    REPORT_SENT = BUNDLE.getFormat("report.sent");
-    SETTING_REPORTNOTIFICATION_NAME = BUNDLE.getFormat("setting.reportnotification.name");
-    SETTING_REPORTNOTIFICATION_SUMMARY = BUNDLE.getFormat("setting.reportnotification.summary");
     SETTING_STAFFCHANNELS_NAME = BUNDLE.getFormat("setting.staffchannels.name");
     SETTING_STAFFCHANNELS_SUMMARY = BUNDLE.getFormat("setting.staffchannels.summary");
     SETTING_STAFFCHANNELS_DISABLED = BUNDLE.getFormat("setting.staffchannels.disabled");
