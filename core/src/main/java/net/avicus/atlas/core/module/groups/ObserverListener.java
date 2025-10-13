@@ -47,7 +47,7 @@ public class ObserverListener implements Listener {
   }
 
   private void recalculatePerms(Player player, boolean add) {
-    player.addAttachment(Atlas.get(), "hook.tp", add);
+    player.addAttachment(Atlas.get(), "companion.teleport", add);
     player.addAttachment(Atlas.get(), "worldedit.navigation.thru.tool", add);
     player.addAttachment(Atlas.get(), "worldedit.navigation.thru.command", add);
     player.addAttachment(Atlas.get(), "worldedit.navigation.jumpto.tool", add);
