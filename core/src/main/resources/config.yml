@@ -36,9 +36,5 @@ chat:
 
 channels:
   enabled: true
-  reports:
-    enabled: true
-    # The time, in seconds, a player must wait between reports.
-    cooldown: 15
   staff:
     enabled: true
