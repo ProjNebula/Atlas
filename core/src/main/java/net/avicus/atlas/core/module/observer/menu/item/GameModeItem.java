@@ -23,11 +23,11 @@ public final class GameModeItem extends ObserverMenuItem {
   public void onClick(final ClickType type) {
     final GameMode mode = this.viewer.getGameMode();
     switch (mode) {
-      case SURVIVAL:
+      case CREATIVE:
         this.viewer.setGameMode(GameMode.SPECTATOR);
         break;
       case SPECTATOR:
-        this.viewer.setGameMode(GameMode.SURVIVAL);
+        this.viewer.setGameMode(GameMode.CREATIVE);
         this.viewer.setAllowFlight(true);
         this.viewer.setFlying(true);
         break;
