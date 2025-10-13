@@ -250,6 +250,7 @@ public class Messages {
   public static final LocalizedFormat DEATH_BY_BLOCK = get("death", "by-block");
   public static final LocalizedFormat DEATH_BY_PLAYER_TNT = get("death", "by-player-tnt");
   public static final LocalizedFormat DEATH_BY_EXPLOSIVE = get("death", "by-explosive");
+  public static final LocalizedFormat DEATH_BY_EXPLOSION = get("death", "by-explosion");
   public static final LocalizedFormat DEATH_BY_PLAYER_VOID = get("death", "by-player-void");
   public static final LocalizedFormat DEATH_BY_VOID = get("death", "by-void");
   public static final LocalizedFormat DEATH_BY_PLAYER_PROJECTILE = get("death",
