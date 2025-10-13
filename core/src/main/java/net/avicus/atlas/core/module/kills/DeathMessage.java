@@ -29,6 +29,7 @@ import tc.oc.tracker.DamageInfo;
 import tc.oc.tracker.Lifetime;
 import tc.oc.tracker.damage.AnvilDamageInfo;
 import tc.oc.tracker.damage.BlockDamageInfo;
+import tc.oc.tracker.damage.ExplosionDamageInfo;
 import tc.oc.tracker.damage.ExplosiveDamageInfo;
 import tc.oc.tracker.damage.FallDamageInfo;
 import tc.oc.tracker.damage.GravityDamageInfo;
@@ -116,6 +117,8 @@ public class DeathMessage {
         return Messages.DEATH_BY_PLAYER_ANVIL.with(ChatColor.GRAY, name, attackerName);
       } else if (info instanceof ExplosiveDamageInfo) {
         return Messages.DEATH_BY_PLAYER_TNT.with(ChatColor.GRAY, name, attackerName);
+      } else if (info instanceof ExplosionDamageInfo) {
+        return Messages.DEATH_BY_EXPLOSION.with(ChatColor.GRAY, name, attackerName);
       } else if (info instanceof GravityDamageInfo) {
         GravityDamageInfo gravity = (GravityDamageInfo) info;
 

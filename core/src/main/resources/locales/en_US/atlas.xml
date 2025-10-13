@@ -335,6 +335,7 @@
     <by-block>{0} was squashed by a block</by-block>
     <by-player-tnt>{0} was blown up by {1}'s TNT</by-player-tnt>
     <by-explosive>{0} was blown up</by-explosive>
+    <by-explosion>{0} was blown up by {1}</by-explosion>
     <by-void>{0} fell into the void</by-void>
     <by-player-void>{0} was sent into the void by {1}</by-player-void>
     <by-projectile>{0} was sniped</by-projectile>
