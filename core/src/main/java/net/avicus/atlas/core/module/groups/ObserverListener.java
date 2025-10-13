@@ -95,7 +95,7 @@ public class ObserverListener implements Listener {
     event.getPlayer().spigot().setAffectsSpawning(!observing);
 
     if (observing) {
-      event.getPlayer().setGameMode(GameMode.SURVIVAL);
+      event.getPlayer().setGameMode(GameMode.CREATIVE);
 
       event.getPlayer().setAllowFlight(true);
       event.getPlayer().setFlying(true);
