@@ -153,6 +153,10 @@ public class Messages {
       "countdown", "phase-apply", "name");
   public static final LocalizedFormat GENERIC_COUNTDOWN_FLAG_RECOVER_NAME = get("generic",
       "countdown", "flag-recover", "name");
+  public static final LocalizedFormat GENERIC_WALLS_FALL_WILL = get("generic", "walls", "fall",
+          "will");
+  public static final LocalizedFormat GENERIC_WALLS_FALL_FELL = get("generic", "walls", "fall",
+          "fell");
 
   public static final LocalizedFormat MATCH_STARTING = get("match", "starting");
   public static final LocalizedFormat MATCH_STARTING_PLURAL = get("match", "starting-plural");
@@ -172,6 +176,7 @@ public class Messages {
   public static final LocalizedFormat UI_MONUMENTS = get("ui", "monuments");
   public static final LocalizedFormat UI_LEAKABLES = get("ui", "leakables");
   public static final LocalizedFormat UI_POINTS = get("ui", "points");
+  public static final LocalizedFormat UI_WALLS = get("ui", "walls");
   public static final LocalizedFormat UI_WOOL = get("ui", "wool");
   public static final LocalizedFormat UI_FLAGS = get("ui", "flags");
   public static final LocalizedFormat UI_ROTATION = get("ui", "rotation");
