@@ -18,6 +18,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.entity.EntityCombustByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -30,10 +31,12 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class ObserverListener implements Listener {
@@ -123,6 +126,20 @@ public class ObserverListener implements Listener {
       event.setUseInteractedBlock(Event.Result.DENY);
       // Right clicking armor
       event.getPlayer().updateInventory();
+    }
+  }
+
+  @EventHandler
+  public void stopEyeOfEnder(final PlayerInteractEvent event) {
+    if (notPlaying(event.getPlayer())) {
+      if (event.getAction() == Action.RIGHT_CLICK_AIR ||
+              event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+
+        ItemStack item = event.getItem();
+        if (item != null && item.getType() == Material.EYE_OF_ENDER) {
+          event.setCancelled(true);
+        }
+      }
     }
   }
 
