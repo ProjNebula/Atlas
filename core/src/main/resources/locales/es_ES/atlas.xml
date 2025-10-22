@@ -28,7 +28,7 @@
     <already-spectator>Ya eres un espectador.</already-spectator>
     <already-playing>Ya estás en un equipo que compite, usa /leave para observar.</already-playing>
     <team-not-found>No se ha encontrado ningún equipo con ese nombre.</team-not-found>
-    <team-invaid>El equipo suministrado no es válido para este comando.</team-invaid>
+    <team-invalid>El equipo suministrado no es válido para este comando.</team-invalid>
     <objective-damage>No puedes dañar ese objetivo.</objective-damage>
     <objective-damage-own>No debes dañar tu propio objetivo.</objective-damage-own>
     <objective-repair-enemy>No puedes reparar el objetivo enemigo.</objective-repair-enemy>
@@ -204,6 +204,7 @@
     <rotation>Rotación ({0}/{1})</rotation>
     <maps>Mapas ({0}/{1})</maps>
     <match>Partida en {0}</match>
+    <round>Current round: {0}</round>
     <by>{0} por {1}</by>
     <authors>Autores</authors>
     <contributors>Ayudantes</contributors>
@@ -220,7 +221,7 @@
     <tie>La partida a sido empatada!</tie>
     <important>* * * {0} * * *</important>
     <player-located>Player located: {0}</player-located>
-    <location-located>Location targeted: {0}</location-located>
+    <location-targeted>Location targeted: {0}</location-targeted>
     <compass>Brujula</compass>
     <food-level>Nivel de Comida: {0}/{1}</food-level>
     <health>Vida: {0}/{1}</health>
@@ -421,7 +422,7 @@
       <modtime>You are not authorized to modify the time for this action.</modtime>
     </permission>
   </error>
-  <component>
+  <module>
     <observer>
       <menu>
         <title>Opciones de observador</title>
@@ -431,7 +432,7 @@
         <item>
           <gamemode>
             <name>Modo de Juego</name>
-            <description>Toggle between the adventure and spectator gamemodes.</description>
+            <description>Toggle between the creative and spectator gamemodes.</description>
           </gamemode>
           <nightvision>
             <name>Vision Nocturna</name>
@@ -448,7 +449,7 @@
         </error>
       </menu>
     </observer>
-  </component>
+  </module>
   <network>
     <protocol>
       <unsupported>
@@ -467,6 +468,14 @@
       <name>DeathMessages</name>
       <description>Toggle which death messages you see</description>
     </deathmessage>
+    <voteshow>
+      <name>ShowVoteMenu</name>
+      <description>Toggle if the vote menu should show up automatically after the match ends</description>
+    </voteshow>
+    <premium>
+      <name>PremiumChat</name>
+      <summary>If premium chat should be shown.</summary>
+    </premium>
   </setting>
   <type>
     <boolean>
