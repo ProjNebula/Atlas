@@ -144,6 +144,27 @@ public class ObserverListener implements Listener {
   }
 
     @EventHandler
+    public void disallowBucket(final InventoryClickEvent event) {
+        if (!(event.getClickedInventory() instanceof PlayerInventory)) {
+            return;
+        }
+
+        Player player = (Player) event.getWhoClicked();
+
+        if (event.getCursor() == null) {
+            return;
+        }
+
+        if (notPlaying(player)) {
+            Material type = event.getCursor().getType();
+
+            if (type.name().contains("BUCKET")) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
     public void disallowDoors(final InventoryClickEvent event) {
         if (!(event.getClickedInventory() instanceof PlayerInventory)) {
             return;
