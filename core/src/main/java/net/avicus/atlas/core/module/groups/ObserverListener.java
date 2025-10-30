@@ -143,6 +143,27 @@ public class ObserverListener implements Listener {
     }
   }
 
+    @EventHandler
+    public void disallowDoors(final InventoryClickEvent event) {
+        if (!(event.getClickedInventory() instanceof PlayerInventory)) {
+            return;
+        }
+
+        Player player = (Player) event.getWhoClicked();
+
+        if (event.getCursor() == null) {
+            return;
+        }
+
+        if (notPlaying(player)) {
+            Material type = event.getCursor().getType();
+
+            if (type.name().contains("DOOR")) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onPlayerInteract(final PlayerInteractAtEntityEvent event) {
     if (notPlaying(event.getPlayer())) {
