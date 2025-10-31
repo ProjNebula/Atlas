@@ -37,7 +37,7 @@ public class MapNotificationComponent implements ListenerComponent {
    *
    * @param map to getFirst info for
    * @return a list of {@link BaseComponent}s that are: 1. Map Name 2. Map Authors (using {@link
-   * StringUtil#listToEnglishCompound(Collection)}) 3. Map Version (with "()") 4. Map Game Types
+   * StringUtil#listToEnglishCompound(Collection)}) 3. Map Game Types
    * (using {@link StringUtil#listToEnglishCompound(Collection)})
    */
   private List<UnlocalizedComponent> getMapInfo(AtlasMap map) {
@@ -47,22 +47,26 @@ public class MapNotificationComponent implements ListenerComponent {
 
     // Authors
     List<String> authorNames = map.getAuthors().stream()
-        .map(author -> ChatColor.GREEN + author.getName() + ChatColor.AQUA)
+        .map(author -> ChatColor.GREEN + author.getName() + ChatColor.GREEN)
         .collect(Collectors.toList());
     String authorString = StringUtil.listToEnglishCompound(authorNames);
     BaseComponent authors = new TextComponent(authorString);
 
     // Version
-    BaseComponent version = new TextComponent(map.getVersion().toString());
-    version.setColor(ChatColor.DARK_AQUA);
-    version.setItalic(true);
+    // BaseComponent version = new TextComponent(map.getVersion().toString());
+    // version.setColor(ChatColor.DARK_AQUA);
+    // version.setItalic(true);
 
     // Game Types
     List<String> types = map.getGameTypes().stream().map(gameType ->
+<<<<<<< Updated upstream
         gameType.getName().with(org.bukkit.ChatColor.BLUE).translate(Locale.ENGLISH).toLegacyText()
+=======
+        gameType.getName().with(org.bukkit.ChatColor.YELLOW).render(Bukkit.getConsoleSender()).toLegacyText()
+>>>>>>> Stashed changes
             + ChatColor.AQUA).collect(Collectors.toList());
     BaseComponent gameType = new TextComponent(StringUtil.listToEnglishCompound(types));
-    gameType.setColor(ChatColor.BLUE);
+    gameType.setColor(ChatColor.YELLOW);
 
     return Arrays.asList(new UnlocalizedComponent(name), new UnlocalizedComponent(authors),
         new UnlocalizedComponent(version), new UnlocalizedComponent(gameType));
@@ -75,7 +79,7 @@ public class MapNotificationComponent implements ListenerComponent {
       if (match != null) {
         match.broadcast(this.currentlyPlaying(this.infoCache));
       }
-    }).repeat(20 * 100, 20 * 60);
+    }).repeat(20 * 100, 20 * 120);
   }
 
   @EventHandler
@@ -98,18 +102,19 @@ public class MapNotificationComponent implements ListenerComponent {
   private Localizable currentlyPlaying(List<UnlocalizedComponent> info) {
     UnlocalizedComponent name = info.get(0);
     UnlocalizedComponent authors = info.get(1);
-    UnlocalizedComponent version = info.get(2);
+    // UnlocalizedComponent version = info.get(2);
 
-    return Messages.UI_CURRENTLY_PLAYING.with(org.bukkit.ChatColor.RED, name, version, authors);
+    // return Messages.UI_CURRENTLY_PLAYING.with(org.bukkit.ChatColor.RED, name, version, authors);
+    return Messages.UI_CURRENTLY_PLAYING.with(org.bukkit.ChatColor.RED, name, authors);
   }
 
   private List<Localizable> welcome(List<UnlocalizedComponent> info) {
-    UnlocalizedComponent name = info.get(0);
-    UnlocalizedComponent authors = info.get(1);
-    UnlocalizedComponent version = info.get(2);
-    UnlocalizedComponent types = info.get(3);
+      UnlocalizedComponent name = info.get(0);
+      UnlocalizedComponent authors = info.get(1);
+      // UnlocalizedComponent version = info.get(2);
+      UnlocalizedComponent types = info.get(3);
 
-    return Arrays.asList(Messages.UI_WELCOME_LINE_1.with(org.bukkit.ChatColor.GOLD, name, version),
-        Messages.UI_WELCOME_LINE_2.with(org.bukkit.ChatColor.GOLD, authors, types));
+      return Arrays.asList(Messages.UI_WELCOME_LINE_1.with(org.bukkit.ChatColor.GOLD, name, version),
+              Messages.UI_WELCOME_LINE_2.with(org.bukkit.ChatColor.GOLD, authors, types));
   }
 }
