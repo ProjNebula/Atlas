@@ -385,6 +385,7 @@
       <title>Hill awarding points!</title>
       <awarded>Points have been awarded!</awarded>
     </countdown>
+    <points>{0} » +{1} points</points>
   </cth>
   <commands>
     <generic>

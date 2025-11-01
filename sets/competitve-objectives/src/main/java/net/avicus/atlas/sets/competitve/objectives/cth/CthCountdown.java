@@ -37,7 +37,7 @@ public class CthCountdown extends MatchCountdown {
 
         this.updateBossBar(message, elapsedTime);
 
-        if (this.shouldBroadcast(remainingSeconds)) {
+        if (this.hill.isShouldBroadcast() && this.shouldBroadcast(remainingSeconds)) {
             this.match.broadcast(message);
             this.match.getPlayers().forEach((player) -> {
                 Events.call(new SoundEvent(player, SoundType.PIANO, SoundLocation.MATCH_DING)).getSound()
@@ -49,9 +49,8 @@ public class CthCountdown extends MatchCountdown {
     @Override
     protected void onEnd() {
         this.clearBossBars();
-
-        this.hill.reward();
         this.match.importantBroadcast(Messages.CTH_COUNTDOWN_AWARDED.with(ChatColor.GREEN));
+        this.hill.reward();
     }
 
     @Override

@@ -18,6 +18,7 @@ import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.groups.Competitor;
 import net.avicus.atlas.core.module.objectives.Objective;
 import net.avicus.atlas.core.util.ObjectiveRenderer;
+import net.avicus.atlas.sets.competitve.objectives.cth.CthObjective;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.leakable.LeakableObjective;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.monument.MonumentObjective;
 import net.avicus.atlas.sets.competitve.objectives.flag.FlagObjective;
@@ -36,7 +37,11 @@ public class CompetitveRenderer extends ObjectiveRenderer {
     StringBuilder result = new StringBuilder();
     Locale locale = viewer.getLocale();
 
-    if (objective instanceof HillObjective) {
+    if(objective instanceof CthObjective cthHill) {
+        if (showName) {
+            result.append(cthHill.getName().render(viewer));
+        }
+    } else if (objective instanceof HillObjective) {
       HillObjective hill = (HillObjective) objective;
 
       Optional<Competitor> capturing = hill.getCapturing();
