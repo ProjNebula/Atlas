@@ -53,6 +53,9 @@ public class CthObjective implements Objective {
     @Getter
     private boolean lightning;
 
+    @Getter
+    private boolean broadcast;
+
     /**
      * Competitors standing on the hill.
      **/
@@ -62,14 +65,17 @@ public class CthObjective implements Objective {
                         LocalizedXmlString name,
                         Region capture,
                         Optional<Integer> score,
-                        Optional<Duration> scoreInterval
-                        ) {
+                        Optional<Duration> scoreInterval,
+                        Optional<Boolean> lightning,
+                        Optional<Boolean> broadcast) {
         this.match = match;
         this.name = name;
         this.capture = capture;
         this.score = score.orElse(10);
         this.scoreInterval = scoreInterval.orElse(new Duration(1000 * 60));
         this.capturing = ArrayListMultimap.create();
+        this.lightning = lightning.orElse(true);
+        this.broadcast = broadcast.orElse(true);
     }
 
     /**
@@ -83,12 +89,16 @@ public class CthObjective implements Objective {
      * Reward any players currently standing on the hill
      */
     public void reward() {
-        this.match.getWorld().strikeLightningEffect(
-                this.capture.getRandomPosition(new Random()).toLocation(match.getWorld()));
+        if(this.lightning) {
+            this.match.getWorld().strikeLightningEffect(
+                    this.capture.getRandomPosition(new Random()).toLocation(match.getWorld()));
+        }
 
         ObjectivesModule objectivesModule = this.match.getRequiredModule(ObjectivesModule.class);
-        for (Competitor competitor : this.capturing.keySet()) {
-            objectivesModule.score(competitor, this.score);
+        for (var key : this.capturing.keySet()) {
+            for (int i = 0; i < this.capturing.get(key).size(); i++) {
+                objectivesModule.score(key, this.score);
+            }
         }
 
         var players = this.capturing.values().stream().toList();

@@ -36,12 +36,19 @@ public class CthFactory implements ObjectiveFactory<CthObjective> {
         // scoreInterval
         Optional<Duration> scoreInterval = element.getAttribute("point-award-interval").asDuration();
 
+        // lightning
+        Optional<Boolean> lightning = element.getAttribute("lightning").asBoolean();
+
+        Optional<Boolean> broadcast = element.getAttribute("broadcast").asBoolean();
+
         return new CthObjective(
                 match,
                 name,
                 capture,
                 points,
-                scoreInterval);
+                scoreInterval,
+                lightning,
+                broadcast);
     }
 
     @Override
