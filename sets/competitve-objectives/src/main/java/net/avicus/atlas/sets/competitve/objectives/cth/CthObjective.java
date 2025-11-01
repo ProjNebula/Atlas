@@ -4,30 +4,26 @@ import com.google.common.collect.ArrayListMultimap;
 import lombok.Getter;
 import lombok.Setter;
 import net.avicus.atlas.core.match.Match;
-import net.avicus.atlas.core.module.checks.Check;
 import net.avicus.atlas.core.module.groups.Competitor;
 import net.avicus.atlas.core.module.groups.GroupsModule;
-import net.avicus.atlas.core.module.groups.teams.Team;
 import net.avicus.atlas.core.module.locales.LocalizedXmlString;
 import net.avicus.atlas.core.module.objectives.Objective;
 import net.avicus.atlas.core.module.objectives.ObjectivesModule;
 import net.avicus.atlas.core.module.shop.PlayerEarnPointEvent;
 import net.avicus.atlas.core.util.Events;
-import net.avicus.atlas.core.util.region.BoundedRegion;
 import net.avicus.atlas.core.util.region.Region;
 import net.avicus.atlas.sets.competitve.objectives.cth.event.CthAwardPointsEvent;
-import net.avicus.atlas.sets.competitve.objectives.hill.HillCaptureRule;
-import net.avicus.atlas.sets.competitve.objectives.hill.PointEarnRule;
-import net.avicus.compendium.inventory.MultiMaterialMatcher;
 import org.bukkit.entity.Player;
 import org.joda.time.Duration;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class CthObjective implements Objective {
     /**
      * Match this objective exists in.
      **/
+    @Getter
     private final Match match;
 
     /**
@@ -84,6 +80,9 @@ public class CthObjective implements Objective {
      * Reward any players currently standing on the hill
      */
     public void reward() {
+        this.match.getWorld().strikeLightningEffect(
+                this.capture.getRandomPosition(new Random()).toLocation(match.getWorld()));
+
         ObjectivesModule objectivesModule = this.match.getRequiredModule(ObjectivesModule.class);
         for (Competitor competitor : this.capturing.keySet()) {
             objectivesModule.score(competitor, this.score);

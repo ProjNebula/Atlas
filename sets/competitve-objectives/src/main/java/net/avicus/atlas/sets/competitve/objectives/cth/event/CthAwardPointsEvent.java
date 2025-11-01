@@ -1,6 +1,5 @@
 package net.avicus.atlas.sets.competitve.objectives.cth.event;
 
-import lombok.Getter;
 import net.avicus.atlas.core.event.objective.ObjectiveCompleteEvent;
 import net.avicus.atlas.core.module.objectives.Objective;
 import org.bukkit.entity.Player;

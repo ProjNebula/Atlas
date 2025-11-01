@@ -306,6 +306,10 @@ public class Messages {
   public static LocalizedText PRIVATE_MESSAGES_SUMMARY = get("settings.private-messages-summary")
       .with();
 
+  public static final LocalizedFormat CTH_COUNTDOWN_TITLE = get("cth", "countdown", "title");
+  public static final LocalizedFormat CTH_COUNTDOWN_TIME = get("cth", "countdown", "time");
+  public static final LocalizedFormat CTH_COUNTDOWN_AWARDED = get("cth", "countdown", "awarded");
+
   public static LocalizedFormat forWoolColor(DyeColor color) {
     return get("wool-color", color.name().toLowerCase().replace("_", "-"));
   }

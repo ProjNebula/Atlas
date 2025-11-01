@@ -1,6 +1,5 @@
 package net.avicus.atlas.sets.competitve.objectives.cth;
 
-import net.avicus.atlas.core.Atlas;
 import net.avicus.atlas.core.documentation.FeatureDocumentation;
 import net.avicus.atlas.core.documentation.attributes.Attributes;
 import net.avicus.atlas.core.documentation.attributes.GenericAttribute;
@@ -15,7 +14,6 @@ import net.avicus.atlas.core.util.xml.XmlElement;
 import org.joda.time.Duration;
 
 import java.util.Optional;
-import java.util.logging.Level;
 
 public class CthFactory implements ObjectiveFactory<CthObjective> {
     @Override

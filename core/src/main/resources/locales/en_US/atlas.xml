@@ -183,7 +183,7 @@
     <players>Players</players>
     <spectators>Spectators</spectators>
     <hills>Hills</hills>
-    <cth-hills>Hill Captures</cth-hills>
+    <cth-hills>CTH</cth-hills>
     <monuments>Monuments</monuments>
     <leakables>Cores</leakables>
     <points>Points</points>
@@ -379,6 +379,13 @@
     <won>{0} won the next map vote!</won>
     <none>There were no votes cast.</none>
   </vote>
+  <cth>
+    <countdown>
+      <time>Awarding points in: {0}</time>
+      <title>Hill awarding points!</title>
+      <awarded>Points have been awarded!</awarded>
+    </countdown>
+  </cth>
   <commands>
     <generic>
       <ping>

@@ -4,6 +4,9 @@ import net.avicus.atlas.core.event.group.PlayerChangedGroupEvent;
 import net.avicus.atlas.core.event.match.MatchStateChangeEvent;
 import net.avicus.atlas.core.module.groups.GroupsModule;
 import net.avicus.atlas.core.module.objectives.ObjectivesModule;
+import net.avicus.compendium.countdown.CountdownEndEvent;
+import net.avicus.compendium.countdown.CountdownManager;
+import net.avicus.compendium.plugin.CompendiumPlugin;
 import net.avicus.grave.event.PlayerDeathEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,15 +20,17 @@ import java.util.List;
 public class CthListener implements Listener {
     private final ObjectivesModule module;
     private final List<CthObjective> hills;
-    private final List<CthTask> tasks;
+    private final List<CthCountdown> countdowns;
+    private final CountdownManager countdownManager;
 
     public CthListener(ObjectivesModule module, List<CthObjective> hills) {
         this.module = module;
         this.hills = hills;
-        this.tasks = new ArrayList<>();
+        this.countdownManager = CompendiumPlugin.getInstance().getCountdownManager();
+        this.countdowns = new ArrayList<>();
 
         for (var hill : hills) {
-            tasks.add(new CthTask(module, hill));
+            countdowns.add(new CthCountdown(hill));
         }
     }
 
@@ -50,12 +55,23 @@ public class CthListener implements Listener {
     }
 
     @EventHandler
+    public void onCountdownEnd(CountdownEndEvent event) {
+        if (event.getEnded() instanceof CthCountdown countdown) {
+            this.countdowns.remove(countdown);
+            var newCountdown = new CthCountdown(countdown.getHill());
+
+            this.countdowns.add(newCountdown);
+            this.countdownManager.start(newCountdown);
+        }
+    }
+
+    @EventHandler
     public void onStateChange(MatchStateChangeEvent event) {
-        for (var task : this.tasks) {
-            task.cancel0();
+        for (var countdown : this.countdowns) {
+            this.countdownManager.cancel(countdown);
 
             if (event.isToPlaying()) {
-                task.start();
+                this.countdownManager.start(countdown);
             }
         }
     }
@@ -69,7 +85,7 @@ public class CthListener implements Listener {
 
     @EventHandler
     public void onChangeTeam(PlayerChangedGroupEvent event) {
-        if (!event.getGroupFrom().isPresent()) {
+        if (event.getGroupFrom().isEmpty()) {
             return;
         }
 
