@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'LocalMVN'
+    }
     stages {
         stage('Checkout') {
             steps {
