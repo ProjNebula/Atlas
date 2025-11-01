@@ -11,7 +11,8 @@ public enum MapGenre {
   ELIMINATION,
   SKY_WARS,
   WALLS,
-  ARCADE;
+  ARCADE,
+  CTH;
 
   MapGenre() {
   }

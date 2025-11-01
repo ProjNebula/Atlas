@@ -1,6 +1,5 @@
 package net.avicus.atlas.sets.competitve.objectives.bridges;
 
-import java.util.Optional;
 import net.avicus.atlas.core.command.GameCommands;
 import net.avicus.atlas.core.component.visual.SidebarHook;
 import net.avicus.atlas.core.module.objectives.ObjectivesModule;
@@ -26,6 +25,8 @@ import net.avicus.compendium.locale.text.Localizable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
+import java.util.Optional;
+
 public class SBHook extends SidebarHook {
 
   private static final ObjectiveRenderer RENDERER = new CompetitveRenderer();
@@ -50,7 +51,10 @@ public class SBHook extends SidebarHook {
 
     if (bridge.objectives.size() == bridge.getHills().size()) {
       return Optional.of(Messages.UI_HILLS.with());
-    } else if (bridge.objectives.size() == bridge.getMonuments().size()) {
+    } else if (bridge.objectives.size() == bridge.getCthHills().size()
+            || bridge.getCthHills().size() + bridge.getModule().getScores().size() == bridge.objectives.size()) {
+        return Optional.of(Messages.UI_CTH_HILLS.with());
+    }else if (bridge.objectives.size() == bridge.getMonuments().size()) {
       return Optional.of(Messages.UI_MONUMENTS.with());
     } else if (bridge.objectives.size() == bridge.getWools().size()) {
       return Optional.of(Messages.UI_WOOL.with());

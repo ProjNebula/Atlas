@@ -14,7 +14,8 @@ public enum GameType {
   LCS(Translations.GAMETYPE_LCS_NAME),
   LTS(Translations.GAMETYPE_LTS_NAME),
   SCORE(Translations.GAMETYPE_SCORE_NAME),
-  WALLS(Translations.GAMETYPE_WALLS_NAME);
+  WALLS(Translations.GAMETYPE_WALLS_NAME),
+  CTH(Translations.GAMETYPE_CTH_NAME);
 
   @Getter
   private final LocalizedFormat name;

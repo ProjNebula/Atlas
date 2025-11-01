@@ -173,6 +173,7 @@ public class Messages {
   public static final LocalizedFormat UI_SPECTATORS = get("ui", "spectators");
   public static final LocalizedFormat UI_OBJECTIVES = get("ui", "objectives");
   public static final LocalizedFormat UI_HILLS = get("ui", "hills");
+  public static final LocalizedFormat UI_CTH_HILLS = get("ui", "cth-hills");
   public static final LocalizedFormat UI_MONUMENTS = get("ui", "monuments");
   public static final LocalizedFormat UI_LEAKABLES = get("ui", "leakables");
   public static final LocalizedFormat UI_POINTS = get("ui", "points");
@@ -304,6 +305,10 @@ public class Messages {
   public static LocalizedText PRIVATE_MESSAGES = get("settings.private-messages").with();
   public static LocalizedText PRIVATE_MESSAGES_SUMMARY = get("settings.private-messages-summary")
       .with();
+
+  public static final LocalizedFormat CTH_COUNTDOWN_TITLE = get("cth", "countdown", "title");
+  public static final LocalizedFormat CTH_COUNTDOWN_TIME = get("cth", "countdown", "time");
+  public static final LocalizedFormat CTH_COUNTDOWN_AWARDED = get("cth", "countdown", "awarded");
 
   public static LocalizedFormat forWoolColor(DyeColor color) {
     return get("wool-color", color.name().toLowerCase().replace("_", "-"));

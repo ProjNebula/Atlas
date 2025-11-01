@@ -21,6 +21,8 @@ import net.avicus.atlas.core.module.objectives.ObjectivesModule;
 import net.avicus.atlas.core.module.objectives.locatable.LocatableListener;
 import net.avicus.atlas.core.util.Events;
 import net.avicus.atlas.core.util.Messages;
+import net.avicus.atlas.sets.competitve.objectives.cth.CthListener;
+import net.avicus.atlas.sets.competitve.objectives.cth.CthObjective;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.DestroyableObjective;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.leakable.LeakableListener;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.leakable.LeakableObjective;
@@ -52,6 +54,7 @@ public class ObjectivesBridge extends ObjectivesModuleBridge implements Listener
   private final List<Listener> listeners;
   private final List<MonumentObjective> monuments;
   private final List<HillObjective> hills;
+  private final List<CthObjective> cthHills;
   private final List<WoolObjective> wools;
   private final List<FlagObjective> flags;
   private final List<LeakableObjective> leakables;
@@ -68,6 +71,7 @@ public class ObjectivesBridge extends ObjectivesModuleBridge implements Listener
     this.listeners = module.getListeners();
     this.monuments = module.getObjectivesByType(MonumentObjective.class);
     this.hills = module.getObjectivesByType(HillObjective.class);
+    this.cthHills = module.getObjectivesByType(CthObjective.class);
     this.wools = module.getObjectivesByType(WoolObjective.class);
     this.flags = module.getObjectivesByType(FlagObjective.class);
     this.leakables = module.getObjectivesByType(LeakableObjective.class);
@@ -75,6 +79,7 @@ public class ObjectivesBridge extends ObjectivesModuleBridge implements Listener
     this.objectives = Lists.newArrayList();
     this.objectives.addAll(this.monuments);
     this.objectives.addAll(this.hills);
+    this.objectives.addAll(this.cthHills);
     this.objectives.addAll(this.wools);
     this.objectives.addAll(this.flags);
     this.objectives.addAll(this.leakables);
@@ -124,6 +129,9 @@ public class ObjectivesBridge extends ObjectivesModuleBridge implements Listener
     }
     if (hills.size() > 0) {
       listeners.add(new HillListener(module, hills));
+    }
+    if (cthHills.size() > 0) {
+      listeners.add(new CthListener(module, cthHills));
     }
     if (wools.size() > 0) {
       listeners.add(new WoolListener(module, wools));

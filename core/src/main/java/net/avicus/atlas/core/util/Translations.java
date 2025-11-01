@@ -26,6 +26,7 @@ public final class Translations {
   public static final LocalizedFormat GAMETYPE_LTS_NAME;
   public static final LocalizedFormat GAMETYPE_SCORE_NAME;
   public static final LocalizedFormat GAMETYPE_WALLS_NAME;
+  public static final LocalizedFormat GAMETYPE_CTH_NAME;
   public static final LocalizedFormat ERROR_UNKNOWN_PLAYER;
   public static final LocalizedFormat ERROR_PERMISSION_MODTIME;
   public static final LocalizedFormat MODULE_OBSERVER_MENU_TITLE;
@@ -142,6 +143,7 @@ public final class Translations {
     GAMETYPE_LTS_NAME = BUNDLE.getFormat("gametype.lts.name");
     GAMETYPE_SCORE_NAME = BUNDLE.getFormat("gametype.score.name");
     GAMETYPE_WALLS_NAME = BUNDLE.getFormat("gametype.walls.name");
+    GAMETYPE_CTH_NAME = BUNDLE.getFormat("gametype.cth.name");
     ERROR_UNKNOWN_PLAYER = BUNDLE.getFormat("error.unknown.player");
     ERROR_PERMISSION_MODTIME = BUNDLE.getFormat("error.permission.modtime");
     MODULE_OBSERVER_MENU_TITLE = BUNDLE.getFormat("module.observer.menu.title");

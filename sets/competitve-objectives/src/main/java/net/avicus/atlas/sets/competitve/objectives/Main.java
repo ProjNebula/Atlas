@@ -1,7 +1,6 @@
 package net.avicus.atlas.sets.competitve.objectives;
 
 import com.google.common.collect.Lists;
-import java.util.logging.Logger;
 import lombok.Setter;
 import net.avicus.atlas.core.Atlas;
 import net.avicus.atlas.core.component.ComponentManager;
@@ -26,6 +25,8 @@ import net.avicus.atlas.sets.competitve.objectives.bridges.ResultsBridge;
 import net.avicus.atlas.sets.competitve.objectives.bridges.SBHook;
 import net.avicus.atlas.sets.competitve.objectives.bridges.StatsBridge;
 import net.avicus.atlas.sets.competitve.objectives.commands.PhaseCommands;
+import net.avicus.atlas.sets.competitve.objectives.cth.CthFactory;
+import net.avicus.atlas.sets.competitve.objectives.cth.event.CthAwardPointsEvent;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.DestroyableFactory;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.event.DestroyableDamageEvent;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.event.DestroyableRepairEvent;
@@ -47,6 +48,8 @@ import net.avicus.atlas.sets.competitve.objectives.wool.event.WoolPickupEvent;
 import net.avicus.atlas.sets.competitve.objectives.wool.event.WoolPlaceEvent;
 import net.avicus.atlas.sets.competitve.objectives.zones.ZonesParsingBridge;
 import net.avicus.compendium.commands.AvicusCommandsRegistration;
+
+import java.util.logging.Logger;
 
 public class Main extends ModuleSet {
 
@@ -92,6 +95,7 @@ public class Main extends ModuleSet {
     PointEarnConfig.CONFIGURABLES.add("flag-pickup");
     PointEarnConfig.CONFIGURABLES.add("flag-steal");
     PointEarnConfig.CONFIGURABLES.add("hill-capture");
+    PointEarnConfig.CONFIGURABLES.add("cth-hill-capture");
     PointEarnConfig.CONFIGURABLES.add("wool-pickup");
     PointEarnConfig.CONFIGURABLES.add("wool-place");
 
@@ -102,6 +106,7 @@ public class Main extends ModuleSet {
 
   @Override
   public void onDisable() {
+    ObjectivesFactory.FACTORY_MAP.remove("cth-hill");
     ObjectivesFactory.FACTORY_MAP.remove("hill");
     ObjectivesFactory.FACTORY_MAP.remove("monument");
     ObjectivesFactory.FACTORY_MAP.remove("leakable");
@@ -124,6 +129,7 @@ public class Main extends ModuleSet {
   }
 
   private void addFactories() {
+    ObjectivesFactory.FACTORY_MAP.put("cth-hill", new CthFactory());
     ObjectivesFactory.FACTORY_MAP.put("hill", new HillFactory());
     ObjectivesFactory.FACTORY_MAP.put("monument", new DestroyableFactory());
     ObjectivesFactory.FACTORY_MAP.put("leakable", new DestroyableFactory());
@@ -160,6 +166,12 @@ public class Main extends ModuleSet {
       HillCaptureEvent event = (HillCaptureEvent) e;
       ExecutionDispatch
           .whenDispatcherExists(dispatcher -> dispatcher.handleEvent(event, null, null));
+    });
+
+    ExecutionDispatch.registerListener("cth-hill-capture", CthAwardPointsEvent.class, (e) -> {
+      CthAwardPointsEvent event = (CthAwardPointsEvent) e;
+      ExecutionDispatch
+              .whenDispatcherExists(dispatcher -> dispatcher.handleEvent(event, null, null));
     });
 
     ExecutionDispatch.registerListener("wool-place", WoolPlaceEvent.class, (e) -> {
