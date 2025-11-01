@@ -51,7 +51,8 @@ public class SBHook extends SidebarHook {
 
     if (bridge.objectives.size() == bridge.getHills().size()) {
       return Optional.of(Messages.UI_HILLS.with());
-    } else if (bridge.objectives.size() == bridge.getCthHills().size()) {
+    } else if (bridge.objectives.size() == bridge.getCthHills().size()
+            || bridge.getCthHills().size() + bridge.getModule().getScores().size() == bridge.objectives.size()) {
         return Optional.of(Messages.UI_CTH_HILLS.with());
     }else if (bridge.objectives.size() == bridge.getMonuments().size()) {
       return Optional.of(Messages.UI_MONUMENTS.with());

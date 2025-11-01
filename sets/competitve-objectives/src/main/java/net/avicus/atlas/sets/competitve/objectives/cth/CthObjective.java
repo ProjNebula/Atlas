@@ -50,6 +50,9 @@ public class CthObjective implements Objective {
     @Getter
     private Duration scoreInterval;
 
+    @Getter
+    private boolean lightning;
+
     /**
      * Competitors standing on the hill.
      **/
