@@ -2,14 +2,6 @@ package net.avicus.atlas.core.module.objectives;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Level;
-
-import net.avicus.atlas.core.Atlas;
 import net.avicus.atlas.core.documentation.ModuleDocumentation;
 import net.avicus.atlas.core.documentation.attributes.Attribute;
 import net.avicus.atlas.core.documentation.attributes.EnumAttribute;
@@ -27,6 +19,12 @@ import net.avicus.atlas.core.module.objectives.score.ScoreObjectiveFactory;
 import net.avicus.atlas.core.util.distance.DistanceCalculationMetric;
 import net.avicus.atlas.core.util.xml.XmlElement;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @ModuleFactorySort(ModuleFactorySort.Order.LATE)
 public class ObjectivesFactory implements ModuleFactory<ObjectivesModule> {
