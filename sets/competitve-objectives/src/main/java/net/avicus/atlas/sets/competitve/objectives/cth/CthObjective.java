@@ -2,7 +2,6 @@ package net.avicus.atlas.sets.competitve.objectives.cth;
 
 import com.google.common.collect.ArrayListMultimap;
 import lombok.Getter;
-import lombok.Setter;
 import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.groups.Competitor;
 import net.avicus.atlas.core.module.groups.GroupsModule;
@@ -11,9 +10,21 @@ import net.avicus.atlas.core.module.objectives.Objective;
 import net.avicus.atlas.core.module.objectives.ObjectivesModule;
 import net.avicus.atlas.core.module.shop.PlayerEarnPointEvent;
 import net.avicus.atlas.core.util.Events;
+import net.avicus.atlas.core.util.Messages;
+import net.avicus.atlas.core.util.Players;
 import net.avicus.atlas.core.util.region.Region;
 import net.avicus.atlas.sets.competitve.objectives.cth.event.CthAwardPointsEvent;
+import net.avicus.compendium.TextStyle;
+import net.avicus.compendium.locale.text.LocalizedFormat;
+import net.avicus.compendium.locale.text.UnlocalizedText;
+import net.avicus.compendium.utils.Strings;
+import org.bukkit.ChatColor;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.joda.time.Duration;
 
 import java.util.Optional;
@@ -29,14 +40,13 @@ public class CthObjective implements Objective {
     /**
      * Name of the hill.
      **/
-    @Setter
     private LocalizedXmlString name;
 
     /**
      * Region the competitors must be standing in to capture this hill.
      **/
     @Getter
-    private Region capture;
+    private final Region capture;
 
     /**
      * Number of points to award per player standing on this hill.
@@ -48,13 +58,18 @@ public class CthObjective implements Objective {
      * How often this hill awards points to players standing on it.
      **/
     @Getter
-    private Duration scoreInterval;
+    private final Duration scoreInterval;
 
     @Getter
-    private boolean lightning;
+    private final boolean lightning;
 
     @Getter
-    private boolean broadcast;
+    private final boolean fireworks;
+
+    @Getter
+    private final boolean shouldBroadcast;
+
+    private final Random random;
 
     /**
      * Competitors standing on the hill.
@@ -67,15 +82,19 @@ public class CthObjective implements Objective {
                         Optional<Integer> score,
                         Optional<Duration> scoreInterval,
                         Optional<Boolean> lightning,
-                        Optional<Boolean> broadcast) {
+                        Optional<Boolean> fireworks,
+                        Optional<Boolean> shouldBroadcast) {
         this.match = match;
         this.name = name;
         this.capture = capture;
         this.score = score.orElse(10);
         this.scoreInterval = scoreInterval.orElse(new Duration(1000 * 60));
-        this.capturing = ArrayListMultimap.create();
         this.lightning = lightning.orElse(true);
-        this.broadcast = broadcast.orElse(true);
+        this.fireworks = fireworks.orElse(true);
+        this.shouldBroadcast = shouldBroadcast.orElse(true);
+
+        this.capturing = ArrayListMultimap.create();
+        this.random = new Random();
     }
 
     /**
@@ -91,13 +110,19 @@ public class CthObjective implements Objective {
     public void reward() {
         if(this.lightning) {
             this.match.getWorld().strikeLightningEffect(
-                    this.capture.getRandomPosition(new Random()).toLocation(match.getWorld()));
+                    this.capture.getRandomPosition(random).toLocation(match.getWorld()));
         }
 
         ObjectivesModule objectivesModule = this.match.getRequiredModule(ObjectivesModule.class);
         for (var key : this.capturing.keySet()) {
-            for (int i = 0; i < this.capturing.get(key).size(); i++) {
-                objectivesModule.score(key, this.score);
+            var teamScore = this.score * this.capturing.get(key).size();
+            objectivesModule.score(key, teamScore);
+
+            this.match.broadcast(Messages.CTH_POINTS.with(ChatColor.GRAY, key.getColoredName(),
+                    new UnlocalizedText(String.valueOf(teamScore), ChatColor.GREEN)));
+
+            if(this.fireworks) {
+                spawnFirework(key);
             }
         }
 
@@ -134,9 +159,36 @@ public class CthObjective implements Objective {
         this.capturing.values().remove(player);
     }
 
+    /**
+     * Spawn firework above the hill region with the color of the provided competitor.
+     *
+     * @return the spawned firework.
+     */
+    private Firework spawnFirework(Competitor competitor) {
+        Location location = this.capture.getRandomPosition(random).toLocation(this.match.getWorld()).add(0, 2, 0);
+        Firework firework = (Firework) this.match.getWorld().spawnEntity(location, EntityType.FIREWORK);
+        FireworkMeta meta = firework.getFireworkMeta();
+        meta.setPower(0);
+
+        FireworkEffect.Builder builder = FireworkEffect.builder();
+        builder.with(FireworkEffect.Type.BURST);
+        builder.withColor(competitor.getFireworkColor());
+        builder.withTrail();
+
+        meta.addEffect(builder.build());
+        firework.setFireworkMeta(meta);
+
+        firework.setVelocity(firework.getVelocity().multiply(0.7));
+
+        // 1.8-1.9 Support
+        Players.playFireworkSound();
+
+        return firework;
+    }
+
     @Override
     public void initialize() {
-
+        // no-op
     }
 
     @Override

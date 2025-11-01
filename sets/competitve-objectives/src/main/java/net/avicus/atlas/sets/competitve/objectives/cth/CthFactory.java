@@ -39,6 +39,9 @@ public class CthFactory implements ObjectiveFactory<CthObjective> {
         // lightning
         Optional<Boolean> lightning = element.getAttribute("lightning").asBoolean();
 
+        // fireworks
+        Optional<Boolean> fireworks = element.getAttribute("fireworks").asBoolean();
+
         Optional<Boolean> broadcast = element.getAttribute("broadcast").asBoolean();
 
         return new CthObjective(
@@ -48,6 +51,7 @@ public class CthFactory implements ObjectiveFactory<CthObjective> {
                 points,
                 scoreInterval,
                 lightning,
+                fireworks,
                 broadcast);
     }
 
