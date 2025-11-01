@@ -10,6 +10,7 @@ import net.avicus.atlas.core.module.objectives.Objective;
 import net.avicus.atlas.core.module.objectives.ObjectivesModule;
 import net.avicus.atlas.core.util.MapGenre;
 import net.avicus.atlas.sets.competitve.objectives.bridges.ObjectivesBridge;
+import net.avicus.atlas.sets.competitve.objectives.cth.CthObjective;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.leakable.LeakableObjective;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.monument.MonumentObjective;
 import net.avicus.atlas.sets.competitve.objectives.hill.HillObjective;
@@ -38,6 +39,11 @@ public class CompetitiveTypeDetector implements AtlasMap.TypeDetector {
           .getObjectives().size()) {
         return Optional.of(MapGenre.KOTH);
       }
+      if (objectives.getCthHills().size() == objectives.getObjectives().size()
+              || objectives.getCthHills().size() + objectives.getModule().getScores().size() == objectives
+              .getObjectives().size()) {
+          return Optional.of(MapGenre.CTH);
+      }
     }
 
     return Optional.empty();
@@ -57,6 +63,8 @@ public class CompetitiveTypeDetector implements AtlasMap.TypeDetector {
           types.add(GameType.DTM);
         } else if (objective instanceof HillObjective) {
           types.add(GameType.HILL);
+        } else if (objective instanceof CthObjective) {
+          types.add(GameType.CTH);
         }
       }
     });

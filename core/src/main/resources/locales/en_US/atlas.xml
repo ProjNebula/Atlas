@@ -183,6 +183,7 @@
     <players>Players</players>
     <spectators>Spectators</spectators>
     <hills>Hills</hills>
+    <cth-hills>Hill Captures</cth-hills>
     <monuments>Monuments</monuments>
     <leakables>Cores</leakables>
     <points>Points</points>
@@ -411,6 +412,9 @@
     <hill>
       <name>King of the Hill</name>
     </hill>
+    <cth>
+      <name>Capture the Hill</name>
+    </cth>
     <lcs>
       <name>Last Competitor Standing</name>
     </lcs>

@@ -7,6 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Level;
+
+import net.avicus.atlas.core.Atlas;
 import net.avicus.atlas.core.documentation.ModuleDocumentation;
 import net.avicus.atlas.core.documentation.attributes.Attribute;
 import net.avicus.atlas.core.documentation.attributes.EnumAttribute;
