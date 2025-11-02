@@ -28,6 +28,10 @@ public class CthCountdown extends MatchCountdown {
         return Messages.CTH_COUNTDOWN_TITLE.with();
     }
 
+
+
+    
+
     @Override
     protected void onTick(Duration elapsedTime, Duration remainingTime) {
         final int remainingSeconds = (int) remainingTime.getStandardSeconds();
