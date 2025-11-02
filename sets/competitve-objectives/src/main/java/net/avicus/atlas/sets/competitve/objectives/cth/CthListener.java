@@ -1,5 +1,6 @@
 package net.avicus.atlas.sets.competitve.objectives.cth;
 
+import net.avicus.atlas.core.Atlas;
 import net.avicus.atlas.core.event.group.PlayerChangedGroupEvent;
 import net.avicus.atlas.core.event.match.MatchStateChangeEvent;
 import net.avicus.atlas.core.module.groups.GroupsModule;
@@ -12,10 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.joda.time.Duration;
 import tc.oc.tracker.event.PlayerCoarseMoveEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class CthListener implements Listener {
     private final ObjectivesModule module;
@@ -29,9 +32,17 @@ public class CthListener implements Listener {
         this.countdownManager = CompendiumPlugin.getInstance().getCountdownManager();
         this.countdowns = new ArrayList<>();
 
-        for (var hill : hills) {
-            countdowns.add(new CthCountdown(hill));
+        Atlas.get().getLogger().log(Level.INFO, "Hills in constructor: " + hills.size());
+
+        for (var hill : hills.stream().filter(h -> h.getCountdownId().isEmpty()).toList()) {
+            countdowns.add(
+                    new CthCountdown(
+                        module.getMatch(),
+                        hill.getScoreInterval().orElse(Duration.standardSeconds(60)),
+                        List.of(hill)));
         }
+
+        this.initializeRegisteredCountdowns();
     }
 
     @EventHandler
@@ -58,7 +69,7 @@ public class CthListener implements Listener {
     public void onCountdownEnd(CountdownEndEvent event) {
         if (event.getEnded() instanceof CthCountdown countdown) {
             this.countdowns.remove(countdown);
-            var newCountdown = new CthCountdown(countdown.getHill());
+            var newCountdown = new CthCountdown(module.getMatch(), countdown.getDuration(), countdown.getHills());
 
             this.countdowns.add(newCountdown);
             this.countdownManager.start(newCountdown);
@@ -98,6 +109,23 @@ public class CthListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         for (var hill : this.hills) {
             hill.remove(event.getPlayer());
+        }
+    }
+
+    private void initializeRegisteredCountdowns() {
+        for (var hill : this.hills.stream().filter(h -> h.getCountdownId().isPresent()).toList()) {
+            var countdownOpt = this.module.getMatch().getRegistry().get(
+                    CthCountdown.class,
+                    hill.getCountdownId().orElseThrow(),
+                    true);
+
+            var countdown = countdownOpt.orElseThrow();
+
+            countdown.getHills().add(hill);
+
+            if (!this.countdowns.contains(countdown)) {
+                this.countdowns.add(countdown);
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ import net.avicus.atlas.sets.competitve.objectives.bridges.ResultsBridge;
 import net.avicus.atlas.sets.competitve.objectives.bridges.SBHook;
 import net.avicus.atlas.sets.competitve.objectives.bridges.StatsBridge;
 import net.avicus.atlas.sets.competitve.objectives.commands.PhaseCommands;
+import net.avicus.atlas.sets.competitve.objectives.cth.CthCountdownFactory;
 import net.avicus.atlas.sets.competitve.objectives.cth.CthFactory;
 import net.avicus.atlas.sets.competitve.objectives.cth.event.CthAwardPointsEvent;
 import net.avicus.atlas.sets.competitve.objectives.destroyable.DestroyableFactory;
@@ -66,6 +67,7 @@ public class Main extends ModuleSet {
   public void onEnable() {
     this.logger.info("Enabling competitive objectives set.");
     this.matchFactory.register(PhasesFactory.class);
+    this.matchFactory.register(CthCountdownFactory.class);
 
     addFactories();
     registerExecutionListeners();
