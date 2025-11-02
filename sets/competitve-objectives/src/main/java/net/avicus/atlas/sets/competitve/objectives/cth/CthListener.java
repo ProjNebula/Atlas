@@ -1,6 +1,5 @@
 package net.avicus.atlas.sets.competitve.objectives.cth;
 
-import net.avicus.atlas.core.Atlas;
 import net.avicus.atlas.core.event.group.PlayerChangedGroupEvent;
 import net.avicus.atlas.core.event.match.MatchStateChangeEvent;
 import net.avicus.atlas.core.module.groups.GroupsModule;
@@ -18,7 +17,6 @@ import tc.oc.tracker.event.PlayerCoarseMoveEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public class CthListener implements Listener {
     private final ObjectivesModule module;
@@ -31,8 +29,6 @@ public class CthListener implements Listener {
         this.hills = hills;
         this.countdownManager = CompendiumPlugin.getInstance().getCountdownManager();
         this.countdowns = new ArrayList<>();
-
-        Atlas.get().getLogger().log(Level.INFO, "Hills in constructor: " + hills.size());
 
         for (var hill : hills.stream().filter(h -> h.getCountdownId().isEmpty()).toList()) {
             countdowns.add(
