@@ -25,6 +25,9 @@ public class CthFactory implements ObjectiveFactory<CthObjective> {
         String rawName = element.getAttribute("name").asRequiredString();
         LocalizedXmlString name = match.getRequiredModule(LocalesModule.class).parse(rawName);
 
+        // countdown-id
+        Optional<String> countdownId = element.getAttribute("countdown-id").asString();
+
         // capture
         Region capture = FactoryUtils
                 .resolveRequiredRegionAs(match, Region.class, element.getAttribute("capture"),
@@ -52,7 +55,8 @@ public class CthFactory implements ObjectiveFactory<CthObjective> {
                 scoreInterval,
                 lightning,
                 fireworks,
-                broadcast);
+                broadcast,
+                countdownId);
     }
 
     @Override
