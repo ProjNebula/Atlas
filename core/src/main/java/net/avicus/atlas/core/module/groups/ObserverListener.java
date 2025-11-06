@@ -18,6 +18,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.entity.EntityCombustByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -30,10 +31,12 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class ObserverListener implements Listener {
@@ -125,6 +128,62 @@ public class ObserverListener implements Listener {
       event.getPlayer().updateInventory();
     }
   }
+
+  @EventHandler
+  public void stopEyeOfEnder(final PlayerInteractEvent event) {
+    if (notPlaying(event.getPlayer())) {
+      if (event.getAction() == Action.RIGHT_CLICK_AIR ||
+              event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+
+        ItemStack item = event.getItem();
+        if (item != null && item.getType() == Material.EYE_OF_ENDER) {
+          event.setCancelled(true);
+        }
+      }
+    }
+  }
+
+    @EventHandler
+    public void disallowBucket(final InventoryClickEvent event) {
+        if (!(event.getClickedInventory() instanceof PlayerInventory)) {
+            return;
+        }
+
+        Player player = (Player) event.getWhoClicked();
+
+        if (event.getCursor() == null) {
+            return;
+        }
+
+        if (notPlaying(player)) {
+            Material type = event.getCursor().getType();
+
+            if (type.name().contains("BUCKET")) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void disallowDoors(final InventoryClickEvent event) {
+        if (!(event.getClickedInventory() instanceof PlayerInventory)) {
+            return;
+        }
+
+        Player player = (Player) event.getWhoClicked();
+
+        if (event.getCursor() == null) {
+            return;
+        }
+
+        if (notPlaying(player)) {
+            Material type = event.getCursor().getType();
+
+            if (type.name().contains("DOOR")) {
+                event.setCancelled(true);
+            }
+        }
+    }
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onPlayerInteract(final PlayerInteractAtEntityEvent event) {
