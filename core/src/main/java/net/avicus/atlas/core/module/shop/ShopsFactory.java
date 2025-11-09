@@ -28,11 +28,13 @@ import net.avicus.atlas.core.module.loadouts.LoadoutsFactory;
 import net.avicus.atlas.core.module.locales.LocalesModule;
 import net.avicus.atlas.core.module.locales.LocalizedXmlString;
 import net.avicus.atlas.core.module.shop.items.ItemStackItem;
+import net.avicus.atlas.core.module.shop.items.TeamEffectItem;
 import net.avicus.atlas.core.util.ScopableItemStack;
 import net.avicus.atlas.core.util.xml.XmlElement;
 import net.avicus.atlas.core.util.xml.named.NamedParser;
 import net.avicus.atlas.core.util.xml.named.NamedParsers;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bukkit.potion.PotionEffect;
 
 public class ShopsFactory implements ModuleFactory<ShopModule> {
 
@@ -153,7 +155,7 @@ public class ShopsFactory implements ModuleFactory<ShopModule> {
   }
 
   @NamedParser("item")
-  public ItemStackItem parseStack(Match match, XmlElement element) {
+  public ShopItem parseStack(Match match, XmlElement element) {
     int price = element.getAttribute("price").asRequiredInteger();
     String nameRaw = element.getAttribute("name").asRequiredString();
     LocalizedXmlString name = match.getRequiredModule(LocalesModule.class).parse(nameRaw);
@@ -167,9 +169,21 @@ public class ShopsFactory implements ModuleFactory<ShopModule> {
     Check purchase = FactoryUtils
         .resolveRequiredCheck(match, element.getAttribute("check"), element.getChild("check"));
 
-    ScopableItemStack stack = match.getFactory().getFactory(LoadoutsFactory.class)
-        .parseItemStack(match, element.getRequiredChild("stack"));
+    var stackEl = element.getChild("stack");
+    var loadOutsFactory = match.getFactory().getFactory(LoadoutsFactory.class);
 
-    return new ItemStackItem(price, name, description, purchase, stack);
+    if(stackEl.isPresent()) {
+        ScopableItemStack stack = loadOutsFactory.parseItemStack(match, stackEl.get());
+
+        return new ItemStackItem(price, name, description, purchase, stack);
+    } else {
+        var teamEffectEl = element.getRequiredChild("team-effect");
+
+        ScopableItemStack stack = loadOutsFactory.parseItemStack(match, teamEffectEl.getRequiredChild("stack"));
+
+        PotionEffect effect = loadOutsFactory.parsePotionEffect(teamEffectEl.getRequiredChild("effect"));
+
+        return new TeamEffectItem(price, name, description, purchase, stack, match, effect);
+    }
   }
 }
