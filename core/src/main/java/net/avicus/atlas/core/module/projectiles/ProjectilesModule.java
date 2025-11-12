@@ -152,6 +152,16 @@ public class ProjectilesModule implements Module, RuntimeConfigurable {
       return;
     }
 
+    if(custom.hasCooldown()) {
+      if (!custom.canUse(event.getPlayer())) {
+        event.getPlayer().sendMessage(Messages.ERROR_COOLDOWN.with(ChatColor.RED));
+        event.setCancelled(true);
+        return;
+      }
+
+      custom.setLastUsage(event.getPlayer(), Instant.now());
+    }
+
     // Spawn the entity
     Entity entity = custom.spawnEntity(event.getPlayer());
 
