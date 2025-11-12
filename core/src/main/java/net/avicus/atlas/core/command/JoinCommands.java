@@ -29,7 +29,7 @@ public class JoinCommands {
   public static final String FULL_PERMISSION = "atlas.join.full";
   public static final String FORCE_PERMISSION = "atlas.join.force";
 
-  @Command(aliases = {"join", "j"}, desc = "Join a team.", usage = "<team>", min = 0, max = -1)
+  @Command(aliases = {"join", "play"}, desc = "Join a team.", usage = "<team>", min = 0, max = -1)
   public static void join(CommandContext cmd, CommandSender sender) throws CommandException {
     MustBePlayerCommandException.ensurePlayer(sender);
 
@@ -155,7 +155,7 @@ public class JoinCommands {
     }
   }
 
-  @Command(aliases = {"leave", "l"}, desc = "Leave your team.", max = 0)
+  @Command(aliases = {"leave", "l", "quit", "exit"}, desc = "Leave your team.", max = 0)
   public static void leave(CommandContext cmd, CommandSender sender) throws CommandMatchException {
     Match match = Atlas.getMatch();
 
