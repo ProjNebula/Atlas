@@ -36,6 +36,8 @@ public final class Translations {
   public static final LocalizedFormat MODULE_OBSERVER_MENU_ITEM_GAMEMODE_DESCRIPTION;
   public static final LocalizedFormat MODULE_OBSERVER_MENU_ITEM_NIGHTVISION_NAME;
   public static final LocalizedFormat MODULE_OBSERVER_MENU_ITEM_NIGHTVISION_DESCRIPTION;
+  public static final LocalizedFormat MODULE_OBSERVER_MENU_ITEM_SETTINGS_NAME;
+  public static final LocalizedFormat MODULE_OBSERVER_MENU_ITEM_SETTINGS_DESCRIPTION;
   public static final LocalizedFormat MODULE_OBSERVER_MENU_ERROR_OPEN_PARTICIPANT;
   public static final LocalizedFormat SETTING_DEATHMESSAGE_NAME;
   public static final LocalizedFormat SETTING_DEATHMESSAGE_DESCRIPTION;
@@ -153,6 +155,8 @@ public final class Translations {
     MODULE_OBSERVER_MENU_ITEM_GAMEMODE_DESCRIPTION = BUNDLE.getFormat("module.observer.menu.item.gamemode.description");
     MODULE_OBSERVER_MENU_ITEM_NIGHTVISION_NAME = BUNDLE.getFormat("module.observer.menu.item.nightvision.name");
     MODULE_OBSERVER_MENU_ITEM_NIGHTVISION_DESCRIPTION = BUNDLE.getFormat("module.observer.menu.item.nightvision.description");
+    MODULE_OBSERVER_MENU_ITEM_SETTINGS_NAME = BUNDLE.getFormat("module.observer.menu.item.settings.name");
+    MODULE_OBSERVER_MENU_ITEM_SETTINGS_DESCRIPTION = BUNDLE.getFormat("module.observer.menu.item.settings.description");
     MODULE_OBSERVER_MENU_ERROR_OPEN_PARTICIPANT = BUNDLE.getFormat("module.observer.menu.error.open.participant");
     SETTING_DEATHMESSAGE_NAME = BUNDLE.getFormat("setting.deathmessage.name");
     SETTING_DEATHMESSAGE_DESCRIPTION = BUNDLE.getFormat("setting.deathmessage.description");

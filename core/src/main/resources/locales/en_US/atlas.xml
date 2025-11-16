@@ -460,6 +460,10 @@
             <description>Toggle if you'd like to have a night vision potion effect applied.
             </description>
           </nightvision>
+          <settings>
+            <name>Settings</name>
+            <description>Change per-player settings.</description>
+          </settings>
         </item>
         <error>
           <open>
