@@ -132,14 +132,7 @@ public class FilteredMovementZone extends Zone {
   }
 
   private void attempt(Player player) {
-      Iterator<Instant> iterator = attempts.values().iterator();
       Instant threeSecs = Instant.now().minus(3000);
-      while (iterator.hasNext()) {
-          Instant instant = iterator.next();
-          if (instant.isBefore(threeSecs)) {
-              iterator.remove();
-          }
-      }
 
       var attempts = this.attempts.get(player.getUniqueId());
       attempts.removeIf(attempt -> attempt.isBefore(threeSecs));
