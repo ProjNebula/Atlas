@@ -38,8 +38,7 @@ public class FilteredMovementZone extends Zone {
   private Optional<Check> enter;
   private Optional<Check> leave;
 
-  private final ArrayListMultimap<UUID, Instant> attempts; // stores enter attempts in the past 5 seconds
-  private final AtlasTask clearAttempts;
+  private final ArrayListMultimap<UUID, Instant> attempts; // stores enter attempts in the past 3 seconds
 
   public FilteredMovementZone(Match match, Region region, Optional<ZoneMessage> message,
       Optional<Check> enter, Optional<Check> leave) {
@@ -48,37 +47,12 @@ public class FilteredMovementZone extends Zone {
     this.leave = leave;
 
     this.attempts = ArrayListMultimap.create();
-    this.clearAttempts = new AtlasTask() {
-      @Override
-      public void run() {
-        Iterator<Instant> iterator = attempts.values().iterator();
-        Instant fiveSecs = Instant.now().minus(5000);
-        while (iterator.hasNext()) {
-          Instant instant = iterator.next();
-          if (instant.isBefore(fiveSecs)) {
-            iterator.remove();
-          }
-        }
-      }
-    };
   }
 
   @Override
   public boolean isActive() {
     return this.enter.isPresent() || this.leave.isPresent();
   }
-
-  @EventHandler
-  public void onMatchOpen(MatchOpenEvent event) {
-    this.clearAttempts.cancel0();
-    this.clearAttempts.repeat(0, 20 * 10);
-  }
-
-  @EventHandler
-  public void onMatchOpen(MatchCloseEvent event) {
-    this.clearAttempts.cancel0();
-  }
-
 
   @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
   public void onTP(PlayerTeleportEvent event) {
@@ -97,7 +71,14 @@ public class FilteredMovementZone extends Zone {
 
   @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
   public void onCoarseMove(PlayerCoarseMoveEvent event) {
-    event.setCancelled(handleMove(event.getPlayer(), event.getFrom(), event.getTo()));
+    var player = event.getPlayer();
+    var cancelMove = handleMove(player, event.getFrom(), event.getTo());
+    if (cancelMove) {
+        var invertedVelocity = player.getVelocity().clone().multiply(-1);
+
+        player.setVelocity(invertedVelocity);
+        event.setCancelled(true);
+    }
   }
 
   public boolean handleMove(Player player, Location fromLoc, Location toLoc) {
@@ -151,12 +132,23 @@ public class FilteredMovementZone extends Zone {
   }
 
   private void attempt(Player player) {
-    int attempts = this.attempts.get(player.getUniqueId()).size() + 1;
-    this.attempts.put(player.getUniqueId(), Instant.now());
+      Iterator<Instant> iterator = attempts.values().iterator();
+      Instant threeSecs = Instant.now().minus(3000);
+      while (iterator.hasNext()) {
+          Instant instant = iterator.next();
+          if (instant.isBefore(threeSecs)) {
+              iterator.remove();
+          }
+      }
 
-    if (attempts >= 10) {
-      player.damage(1);
-    }
+      var attempts = this.attempts.get(player.getUniqueId());
+      attempts.removeIf(attempt -> attempt.isBefore(threeSecs));
+
+      this.attempts.put(player.getUniqueId(), Instant.now());
+      attempts = this.attempts.get(player.getUniqueId());
+      if (attempts.size() >= 10) {
+          player.damage(2);
+      }
   }
 
   @Override
