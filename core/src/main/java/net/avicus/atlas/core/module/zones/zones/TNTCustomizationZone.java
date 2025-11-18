@@ -1,5 +1,6 @@
 package net.avicus.atlas.core.module.zones.zones;
 
+import java.lang.reflect.Field;
 import java.util.Optional;
 import java.util.Random;
 import lombok.ToString;
@@ -14,6 +15,8 @@ import net.avicus.atlas.core.runtimeconfig.fields.SimpleFields.BooleanField;
 import net.avicus.atlas.core.runtimeconfig.fields.SimpleFields.FloatField;
 import net.avicus.atlas.core.runtimeconfig.fields.SimpleFields.IntField;
 import net.avicus.atlas.core.util.region.Region;
+import net.minecraft.server.v1_8_R3.EntityLiving;
+import net.minecraft.server.v1_8_R3.EntityTNTPrimed;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -21,6 +24,10 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Dispenser;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftTNTPrimed;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -44,6 +51,7 @@ public class TNTCustomizationZone extends Zone {
   private Duration fuse;
   private int dispenserNukeLimit;
   private Float dispenserNukeMultiplier;
+  private boolean destroysBlocks;
 
   public TNTCustomizationZone(Match match,
       Region region,
@@ -53,7 +61,8 @@ public class TNTCustomizationZone extends Zone {
       boolean instantIgnite,
       Duration fuse,
       int dispenserNukeLimit,
-      Float dispenserNukeMultiplier) {
+      Float dispenserNukeMultiplier,
+      boolean destroysBlocks) {
     super(match, region, message);
     this.yield = yield;
     this.power = power;
@@ -61,6 +70,7 @@ public class TNTCustomizationZone extends Zone {
     this.fuse = fuse;
     this.dispenserNukeLimit = dispenserNukeLimit;
     this.dispenserNukeMultiplier = dispenserNukeMultiplier;
+    this.destroysBlocks = destroysBlocks;
   }
 
   @Override
@@ -70,7 +80,8 @@ public class TNTCustomizationZone extends Zone {
         this.instantIgnite ||
         this.fuse != null ||
         this.dispenserNukeLimit > Integer.MIN_VALUE ||
-        this.dispenserNukeMultiplier > Integer.MIN_VALUE;
+        this.dispenserNukeMultiplier > Integer.MIN_VALUE ||
+        !this.destroysBlocks;
   }
 
   public int getFuseTicks() {
@@ -96,6 +107,7 @@ public class TNTCustomizationZone extends Zone {
     if (this.instantIgnite && event.getBlock().getType() == Material.TNT) {
       World world = event.getBlock().getWorld();
       TNTPrimed tnt = world.spawn(event.getBlock().getLocation(), TNTPrimed.class);
+      Trackers.getTracker(ExplosiveTracker.class).setOwner(tnt, event.getPlayer());
 
       if (this.fuse != null) {
         tnt.setFuseTicks(this.getFuseTicks());
@@ -137,6 +149,19 @@ public class TNTCustomizationZone extends Zone {
         tnt.setYield(this.power);
       }
     }
+  }
+
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  public void setBlockDamage(EntityExplodeEvent event) {
+      if (!getRegion().contains(event.getEntity())) {
+          return;
+      }
+
+      if (event.getEntity() instanceof TNTPrimed) {
+          if (!destroysBlocks) {
+              event.setCancelled(true);
+          }
+      }
   }
 
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
