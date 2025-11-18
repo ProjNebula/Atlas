@@ -76,6 +76,11 @@ public class FilteredMovementZone extends Zone {
     if (cancelMove) {
         var invertedVelocity = player.getVelocity().clone().multiply(-1);
 
+        // If we are falling onto the region, multiply the inverted velocity to help ensure player doesn't get stuck
+        if (event.getFrom().getBlockY() > event.getTo().getBlockY()) {
+            invertedVelocity.multiply(2);
+        }
+
         player.setVelocity(invertedVelocity);
         event.setCancelled(true);
     }
