@@ -1,8 +1,5 @@
 package net.avicus.atlas.core.module.zones.zones;
 
-import java.lang.reflect.Field;
-import java.util.Optional;
-import java.util.Random;
 import lombok.ToString;
 import net.avicus.atlas.core.event.world.BlockChangeByPlayerEvent;
 import net.avicus.atlas.core.event.world.BlockChangeEvent;
@@ -15,8 +12,6 @@ import net.avicus.atlas.core.runtimeconfig.fields.SimpleFields.BooleanField;
 import net.avicus.atlas.core.runtimeconfig.fields.SimpleFields.FloatField;
 import net.avicus.atlas.core.runtimeconfig.fields.SimpleFields.IntField;
 import net.avicus.atlas.core.util.region.Region;
-import net.minecraft.server.v1_8_R3.EntityLiving;
-import net.minecraft.server.v1_8_R3.EntityTNTPrimed;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -24,10 +19,6 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Dispenser;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftTNTPrimed;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -39,6 +30,9 @@ import org.bukkit.util.Vector;
 import org.joda.time.Duration;
 import tc.oc.tracker.Trackers;
 import tc.oc.tracker.trackers.ExplosiveTracker;
+
+import java.util.Optional;
+import java.util.Random;
 
 @ToString(callSuper = true)
 public class TNTCustomizationZone extends Zone {
