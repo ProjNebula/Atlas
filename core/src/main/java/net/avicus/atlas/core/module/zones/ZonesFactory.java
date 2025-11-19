@@ -458,8 +458,14 @@ public class ZonesFactory implements ModuleFactory<ZonesModule> {
       nukeMultiplier = dispenser.getAttribute("nuke-multiplier").asFloat().orElse(nukeMultiplier);
     }
 
+    var destroysBlocks = true;
+    var destroysBlocksEl = element.getChild("block-damage");
+    if (destroysBlocksEl.isPresent()) {
+        destroysBlocks = destroysBlocksEl.get().getAttribute("destroy").asBoolean().orElse(destroysBlocks);
+    }
+
     return new TNTCustomizationZone(match, region, message, yield, power, instant, fuse, nukeLimit,
-        nukeMultiplier);
+        nukeMultiplier, destroysBlocks);
   }
 
   @NamedParser("triggers")
