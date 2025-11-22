@@ -6,6 +6,7 @@ import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.groups.GroupsModule;
 import net.avicus.atlas.core.module.observer.menu.item.GameModeItem;
 import net.avicus.atlas.core.module.observer.menu.item.NightVisionItem;
+import net.avicus.atlas.core.module.observer.menu.item.SettingsItem;
 import net.avicus.atlas.core.util.Translations;
 import net.avicus.compendium.menu.inventory.InventoryMenu;
 import org.bukkit.ChatColor;
@@ -24,6 +25,7 @@ public final class ObserverMenu extends InventoryMenu {
         1
     );
     this.add(new GameModeItem(viewer, this, 2));
+    this.add(new SettingsItem(viewer, this, 4));
     this.add(new NightVisionItem(viewer, this, 6));
     this.update(true);
   }
