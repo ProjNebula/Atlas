@@ -176,6 +176,11 @@
     <cycled>Cycled to {0}!</cycled>
   </match>
   <ui>
+    <spectator-action-bar>
+      <spectating>You are spectating. Type {0} to play</spectating>
+      <slash-join>/join</slash-join>
+      <match-full>This match is currently full.</match-full>
+    </spectator-action-bar>
     <join-team>Join {0}</join-team>
     <teleport-device>Teleport Device</teleport-device>
     <teleport-device-text>Left-click to teleport, right-click to go through walls.
@@ -460,6 +465,10 @@
             <description>Toggle if you'd like to have a night vision potion effect applied.
             </description>
           </nightvision>
+          <settings>
+            <name>Settings</name>
+            <description>Change per-player settings.</description>
+          </settings>
         </item>
         <error>
           <open>

@@ -166,6 +166,9 @@ public class Messages {
   public static final LocalizedFormat MATCH_CYCLING_PLURAL = get("match", "cycling-plural");
   public static final LocalizedFormat MATCH_CYCLED = get("match", "cycled");
 
+  public static final LocalizedFormat UI_SPECTATOR_ACTION_BAR_SPECTATING = get("ui", "spectator-action-bar", "spectating");
+  public static final LocalizedFormat UI_SPECTATOR_ACTION_BAR_SLASH_JOIN = get("ui", "spectator-action-bar", "slash-join");
+  public static final LocalizedFormat UI_SPECTATOR_ACTION_BAR_MATCH_FULL = get("ui", "spectator-action-bar", "match-full");
   public static final LocalizedFormat UI_JOIN_TEAM = get("ui", "join-team");
   public static final LocalizedFormat UI_TELEPORT_DEVICE = get("ui", "teleport-device");
   public static final LocalizedFormat UI_TELEPORT_DEVICE_TEXT = get("ui", "teleport-device-text");

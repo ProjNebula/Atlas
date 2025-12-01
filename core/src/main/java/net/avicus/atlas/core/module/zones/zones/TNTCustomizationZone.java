@@ -1,7 +1,5 @@
 package net.avicus.atlas.core.module.zones.zones;
 
-import java.util.Optional;
-import java.util.Random;
 import lombok.ToString;
 import net.avicus.atlas.core.event.world.BlockChangeByPlayerEvent;
 import net.avicus.atlas.core.event.world.BlockChangeEvent;
@@ -33,6 +31,9 @@ import org.joda.time.Duration;
 import tc.oc.tracker.Trackers;
 import tc.oc.tracker.trackers.ExplosiveTracker;
 
+import java.util.Optional;
+import java.util.Random;
+
 @ToString(callSuper = true)
 public class TNTCustomizationZone extends Zone {
 
@@ -44,6 +45,7 @@ public class TNTCustomizationZone extends Zone {
   private Duration fuse;
   private int dispenserNukeLimit;
   private Float dispenserNukeMultiplier;
+  private boolean destroysBlocks;
 
   public TNTCustomizationZone(Match match,
       Region region,
@@ -53,7 +55,8 @@ public class TNTCustomizationZone extends Zone {
       boolean instantIgnite,
       Duration fuse,
       int dispenserNukeLimit,
-      Float dispenserNukeMultiplier) {
+      Float dispenserNukeMultiplier,
+      boolean destroysBlocks) {
     super(match, region, message);
     this.yield = yield;
     this.power = power;
@@ -61,6 +64,7 @@ public class TNTCustomizationZone extends Zone {
     this.fuse = fuse;
     this.dispenserNukeLimit = dispenserNukeLimit;
     this.dispenserNukeMultiplier = dispenserNukeMultiplier;
+    this.destroysBlocks = destroysBlocks;
   }
 
   @Override
@@ -70,7 +74,8 @@ public class TNTCustomizationZone extends Zone {
         this.instantIgnite ||
         this.fuse != null ||
         this.dispenserNukeLimit > Integer.MIN_VALUE ||
-        this.dispenserNukeMultiplier > Integer.MIN_VALUE;
+        this.dispenserNukeMultiplier > Integer.MIN_VALUE ||
+        !this.destroysBlocks;
   }
 
   public int getFuseTicks() {
@@ -96,6 +101,7 @@ public class TNTCustomizationZone extends Zone {
     if (this.instantIgnite && event.getBlock().getType() == Material.TNT) {
       World world = event.getBlock().getWorld();
       TNTPrimed tnt = world.spawn(event.getBlock().getLocation(), TNTPrimed.class);
+      Trackers.getTracker(ExplosiveTracker.class).setOwner(tnt, event.getPlayer());
 
       if (this.fuse != null) {
         tnt.setFuseTicks(this.getFuseTicks());
@@ -137,6 +143,19 @@ public class TNTCustomizationZone extends Zone {
         tnt.setYield(this.power);
       }
     }
+  }
+
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  public void setBlockDamage(EntityExplodeEvent event) {
+      if (!getRegion().contains(event.getEntity())) {
+          return;
+      }
+
+      if (event.getEntity() instanceof TNTPrimed) {
+          if (!destroysBlocks) {
+              event.setCancelled(true);
+          }
+      }
   }
 
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

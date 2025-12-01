@@ -3,10 +3,12 @@ package net.avicus.atlas.core.module.groups;
 import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.util.AtlasTask;
 import net.avicus.atlas.core.util.Messages;
+import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.settings.PlayerSettings;
 import net.avicus.compendium.settings.Setting;
 import net.avicus.compendium.settings.types.SettingTypes;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class ObserverTask extends AtlasTask {
@@ -43,12 +45,23 @@ public class ObserverTask extends AtlasTask {
   }
 
   public void execute() {
+    var messageToSend = this.match.getRequiredModule(GroupsModule.class)
+            .getGroups()
+            .stream()
+            .filter(g -> !g.isSpectator())
+            .allMatch(g -> g.isFull(false))
+        ? Messages.UI_SPECTATOR_ACTION_BAR_MATCH_FULL.with(ChatColor.RED)
+        : Messages.UI_SPECTATOR_ACTION_BAR_SPECTATING.with(ChatColor.AQUA,
+            Messages.UI_SPECTATOR_ACTION_BAR_SLASH_JOIN.with(TextStyle.ofColor(ChatColor.GREEN).bold()));
+
     for (Player player : Bukkit.getOnlinePlayers()) {
       boolean observing = this.module.isObserving(player);
 
       if (observing) {
         player.setFireTicks(0);
         player.setRemainingAir(20);
+
+        player.sendActionBar(messageToSend.render(player));
       }
 
       for (Player target : Bukkit.getOnlinePlayers()) {
