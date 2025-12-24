@@ -4,19 +4,9 @@ import com.sk89q.minecraft.util.commands.CommandException;
 import com.sk89q.minecraft.util.commands.CommandNumberFormatException;
 import com.sk89q.minecraft.util.commands.CommandPermissionsException;
 import com.sk89q.minecraft.util.commands.CommandUsageException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 import net.avicus.atlas.core.afk.AFKKickTask;
-import net.avicus.atlas.core.announce.AnnounceCommands;
 import net.avicus.atlas.core.channel.ChannelManager;
 import net.avicus.atlas.core.channel.premium.Premium;
 import net.avicus.atlas.core.channel.staff.StaffChannels;
@@ -88,6 +78,16 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import javax.annotation.Nullable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Atlas extends JavaPlugin {
 
@@ -314,7 +314,6 @@ public class Atlas extends JavaPlugin {
     }
 
     registrar.register(RestartCommands.class);
-    registrar.register(AnnounceCommands.Parent.class);
   }
 
   @Override
