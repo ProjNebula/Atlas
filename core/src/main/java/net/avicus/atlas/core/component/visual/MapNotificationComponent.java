@@ -73,7 +73,7 @@ public class MapNotificationComponent implements ListenerComponent {
   public void enable() {
     AtlasTask.of(() -> {
       Match match = Atlas.getMatch();
-      if (match != null) {
+      if (match != null && !match.getPlayers().isEmpty()) {
         match.broadcast(this.currentlyPlaying(this.infoCache));
       }
     }).repeat(20 * 100, 20 * 60);
