@@ -19,6 +19,11 @@ public class LockingSharingListener implements Listener {
   protected static final ItemTag.Boolean LOCKED = new ItemTag.Boolean("locked", false);
   protected static final ItemTag.Boolean UN_SHAREABLE = new ItemTag.Boolean("un-shareable", false);
 
+  public static ItemStack lock(ItemStack stack) {
+    LOCKED.set(stack, true);
+    return stack;
+  }
+
   private boolean isLocked(@Nullable ItemStack item) {
     return item != null && LOCKED.get(item);
   }
