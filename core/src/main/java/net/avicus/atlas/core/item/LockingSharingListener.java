@@ -1,6 +1,5 @@
 package net.avicus.atlas.core.item;
 
-import java.util.Iterator;
 import javax.annotation.Nullable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,20 +15,12 @@ import org.bukkit.inventory.ItemStack;
  */
 public class LockingSharingListener implements Listener {
 
-  protected static final ItemTag.Boolean LOCKED = new ItemTag.Boolean("locked", false);
-  protected static final ItemTag.Boolean UN_SHAREABLE = new ItemTag.Boolean("un-shareable", false);
-
-  public static ItemStack lock(ItemStack stack) {
-    LOCKED.set(stack, true);
-    return stack;
-  }
-
   private boolean isLocked(@Nullable ItemStack item) {
-    return item != null && LOCKED.get(item);
+    return item != null && ItemUtils.LOCKED.get(item);
   }
 
   private boolean unShareable(@Nullable ItemStack item) {
-    return item != null && (isLocked(item) || UN_SHAREABLE.get(item));
+    return item != null && (isLocked(item) || ItemUtils.UN_SHAREABLE.get(item));
   }
 
   @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
@@ -77,10 +68,6 @@ public class LockingSharingListener implements Listener {
 
   @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
   public void onDeath(PlayerDeathEvent event) {
-    for (Iterator<ItemStack> iterator = event.getDrops().iterator(); iterator.hasNext(); ) {
-      if (unShareable(iterator.next())) {
-        iterator.remove();
-      }
-    }
+    event.getDrops().removeIf(this::unShareable);
   }
 }

@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.avicus.atlas.core.item.LockingSharingListener;
+import net.avicus.atlas.core.item.ItemUtils;
 import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.groups.GroupsModule;
 import net.avicus.atlas.core.module.groups.Spectators;
@@ -64,7 +64,7 @@ public class GroupMenu extends InventoryMenu {
     meta.setLore(Collections.singletonList(ChatColor.BLACK + "Team Menu"));
 
     stack.setItemMeta(meta);
-    return LockingSharingListener.lock(stack);
+    return ItemUtils.lock(stack);
   }
 
   public static boolean isMenuOpener(ItemStack stack) {

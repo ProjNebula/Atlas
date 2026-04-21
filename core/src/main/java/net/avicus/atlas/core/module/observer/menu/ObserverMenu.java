@@ -2,7 +2,7 @@ package net.avicus.atlas.core.module.observer.menu;
 
 import java.util.Collections;
 import net.avicus.atlas.core.Atlas;
-import net.avicus.atlas.core.item.LockingSharingListener;
+import net.avicus.atlas.core.item.ItemUtils;
 import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.groups.GroupsModule;
 import net.avicus.atlas.core.module.observer.menu.item.GameModeItem;
@@ -43,7 +43,7 @@ public final class ObserverMenu extends InventoryMenu {
             .render(viewer).toLegacyText());
     meta.setLore(Collections.singletonList(ChatColor.BLACK + "observer-menu"));
     stack.setItemMeta(meta);
-    return LockingSharingListener.lock(stack);
+    return ItemUtils.lock(stack);
   }
 
   public static boolean matches(final ItemStack stack) {
