@@ -1,13 +1,7 @@
 package net.avicus.atlas.core.module.results;
 
+import com.destroystokyo.paper.Title;
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
 import net.avicus.atlas.core.countdown.MatchEndCountdown;
@@ -51,7 +45,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.github.paperspigot.Title;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @ToString(exclude = "match")
 public class ResultsModule extends BridgeableModule<ModuleBridge<ResultsModule>> implements Module {

@@ -1,15 +1,7 @@
 package net.avicus.atlas.core.module.stats;
 
+import com.destroystokyo.paper.Title;
 import com.google.common.collect.Maps;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.ToString;
 import net.avicus.atlas.core.channel.staff.StaffChannels;
@@ -40,7 +32,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.github.paperspigot.Title;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 @ToString(exclude = "match")
 public class StatsModule extends BridgeableModule<ModuleBridge<StatsModule>> implements Module {

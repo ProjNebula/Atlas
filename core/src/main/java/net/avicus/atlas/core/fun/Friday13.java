@@ -1,6 +1,6 @@
 package net.avicus.atlas.core.fun;
 
-import java.util.Random;
+import com.destroystokyo.paper.Title;
 import net.avicus.atlas.core.Atlas;
 import net.avicus.atlas.core.util.AtlasTask;
 import net.md_5.bungee.api.ChatColor;
@@ -12,7 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
-import org.github.paperspigot.Title;
+
+import java.util.Random;
 
 public class Friday13 implements Listener {
 
