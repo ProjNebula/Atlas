@@ -1,7 +1,7 @@
 package net.avicus.atlas.core.countdown;
 
+import com.destroystokyo.paper.Title;
 import com.google.common.base.Preconditions;
-import java.util.Optional;
 import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.groups.Competitor;
 import net.avicus.atlas.core.module.groups.GroupsModule;
@@ -18,8 +18,9 @@ import net.avicus.compendium.sound.SoundLocation;
 import net.avicus.compendium.sound.SoundType;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.github.paperspigot.Title;
 import org.joda.time.Duration;
+
+import java.util.Optional;
 
 /**
  * Countdown that is used to start a match. This may be triggered from an {@link

@@ -1,9 +1,8 @@
 package net.avicus.atlas.core.util;
 
-import java.util.Locale;
+import com.destroystokyo.paper.Title;
 import net.avicus.atlas.core.module.locales.LocalizedXmlString;
 import org.bukkit.entity.Player;
-import org.github.paperspigot.Title;
 
 public class LocalizedXmlTitle {
 

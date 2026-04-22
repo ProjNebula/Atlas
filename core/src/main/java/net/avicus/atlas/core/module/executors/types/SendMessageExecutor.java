@@ -1,6 +1,6 @@
 package net.avicus.atlas.core.module.executors.types;
 
-import java.util.UUID;
+import com.destroystokyo.paper.Title;
 import lombok.ToString;
 import net.avicus.atlas.core.documentation.FeatureDocumentation;
 import net.avicus.atlas.core.documentation.InfoTable;
@@ -20,7 +20,8 @@ import net.avicus.atlas.core.util.xml.XmlException;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
-import org.github.paperspigot.Title;
+
+import java.util.UUID;
 
 /**
  * An executor that sends a message to a player. Can send titles, subtitles, and chat messages

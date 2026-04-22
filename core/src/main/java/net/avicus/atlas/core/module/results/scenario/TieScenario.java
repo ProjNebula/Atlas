@@ -1,5 +1,6 @@
 package net.avicus.atlas.core.module.results.scenario;
 
+import com.destroystokyo.paper.Title;
 import lombok.ToString;
 import net.avicus.atlas.core.match.Match;
 import net.avicus.atlas.core.module.checks.Check;
@@ -14,7 +15,6 @@ import net.avicus.compendium.sound.SoundType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.github.paperspigot.Title;
 
 /**
  * Internal scenario to handle when check passes but no winner can be clearly decided.

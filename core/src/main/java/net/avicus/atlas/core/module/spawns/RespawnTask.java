@@ -1,7 +1,6 @@
 package net.avicus.atlas.core.module.spawns;
 
-import java.util.Locale;
-import java.util.Optional;
+import com.destroystokyo.paper.Title;
 import lombok.Getter;
 import lombok.Setter;
 import net.avicus.atlas.core.Atlas;
@@ -29,10 +28,12 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
-import org.github.paperspigot.Title;
 import org.joda.time.Instant;
 import org.spigotmc.event.entity.EntityDismountEvent;
 import tc.oc.tracker.event.PlayerDamageEvent;
+
+import java.util.Locale;
+import java.util.Optional;
 
 public class RespawnTask extends AtlasTask implements Listener {
 
