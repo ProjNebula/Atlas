@@ -119,10 +119,10 @@ public class ItemStackBuilder {
       Arrays.stream(this.tags).forEach(t -> t.set(meta, t.defaultValue));
     }
     if (this.locked) {
-      LockingSharingListener.LOCKED.set(meta, true);
+      ItemUtils.LOCKED.set(meta, true);
     }
     if (this.unShareable) {
-      LockingSharingListener.UN_SHAREABLE.set(meta, true);
+      ItemUtils.UN_SHAREABLE.set(meta, true);
     }
     stack.setItemMeta(meta);
     return stack;
