@@ -3,6 +3,7 @@ package net.avicus.atlas.core.module.groups;
 import java.util.Collections;
 import java.util.Locale;
 import net.avicus.atlas.core.event.player.PlayerSpawnBeginEvent;
+import net.avicus.atlas.core.item.ItemUtils;
 import net.avicus.atlas.core.module.observer.menu.ObserverMenu;
 import net.avicus.atlas.core.util.Messages;
 import net.avicus.compendium.TextStyle;
@@ -38,7 +39,7 @@ public class SpectatorListener implements Listener {
     ));
 
     stack.setItemMeta(meta);
-    return stack;
+    return ItemUtils.lock(stack);
   }
 
   @EventHandler
