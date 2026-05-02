@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,6 +39,16 @@ public class LockingSharingListener implements Listener {
       if (isLocked(event.getWhoClicked().getInventory().getItem(event.getHotbarButton()))) {
         event.setCancelled(true);
       }
+    }
+  }
+
+  @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+  public void onCreativeInventoryAction(InventoryCreativeEvent event) {
+    if (event.getWhoClicked().hasPermission("atlas.spectator.bypass-inventory-lock")) {
+      return;
+    }
+    if (isLocked(event.getWhoClicked().getInventory().getItem(event.getSlot()))) {
+      event.setCancelled(true);
     }
   }
 
